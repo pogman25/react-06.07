@@ -22,12 +22,18 @@ export default class Chat extends Component {
         return(
             <Fragment>
                 <Message message={this.state.chats}/>
-                <input 
-                    value = {this.state.input} 
-                    onKeyUp={ (event) => this.handleKeyUp(event, this.state.input) }
-                    onChange= {this.handleChange} 
-                    />
-                <button onClick={this.handleSendMessage}>sdsd</button>
+                <div className="chat-actions">
+                    <input 
+                        className="input"
+                        value = {this.state.input} 
+                        onKeyUp={ (event) => this.handleKeyUp(event, this.state.input) }
+                        onChange= {this.handleChange} 
+                        />
+                    <button 
+                        className="chat-action__button"
+                        onClick={this.handleSendMessage}>Жмак</button>
+                </div>
+                
             </Fragment>
         )
     }

@@ -5,8 +5,17 @@ export default class Message extends Component {
         super(props)
     }
     render(){
+   
+        let messageText
+        if (this.props.message.length > 0) {
+            messageText = <span className="message__text">{this.props.message}</span>
+        } else {
+            messageText = <span>{this.props.message}</span>
+        }
         return(
-            <div className="message">{this.props.message}</div>
+            <div className="message">
+                {messageText}
+            </div>
         )
     }
 }

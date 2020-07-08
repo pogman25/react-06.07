@@ -29,6 +29,15 @@ main{
     border-radius: 5px;
     border: 1px solid blueviolet
 }
+
+.chat-list{
+    display: flex;
+    height: 70%;
+    flex-direction: column;
+    overflow-y: scroll;
+    margin: 0 0 1rem 0;
+}
+
 .chat-actions{
     display: flex;
 

@@ -52,7 +52,8 @@ class Textarea extends Component {
           <div className="future-message" key={index}>
             {/*key - каждый элемент массива должен быть подписан уникальным ключом. нужен здесь -так требует
             framework. задаём значение key в данном случае index элемента массива*/}
-            {letter} //элемент массива
+            {letter}
+            {/*//элемент массива*/}
           </div>
 
         )}

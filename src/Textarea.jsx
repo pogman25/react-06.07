@@ -2,9 +2,6 @@ import React, {Component} from "react";
 import ReactDOM from "react-dom";
 import Styles from './styles/App.css';
 
-
-
-
 class Textarea extends Component {
 
   constructor(props) {
@@ -33,7 +30,6 @@ class Textarea extends Component {
   handleChange(event) {
     this.setState({value: event.target.value});
   }
-
 
   render() {
     const {value, letters } = this.state;

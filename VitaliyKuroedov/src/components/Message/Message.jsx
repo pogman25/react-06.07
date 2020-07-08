@@ -15,6 +15,7 @@ export default class Message extends Component {
         return(
             <div className="message">
                 {messageText}
+                
             </div>
         )
     }

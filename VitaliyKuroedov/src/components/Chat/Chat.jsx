@@ -8,8 +8,10 @@ export default class Chat extends Component {
         input: ''
     }
     handleSendMessage = (value) => {
+        let id = this.state.chats.length
         if (this.state.input != '') {
-            this.setState({chats: [...this.state.chats, {"name": "я", "text": this.state.input}]})
+            this.setState({chats: [...this.state.chats,
+                id = {"name": "я", "text": this.state.input}]})
             this.setState({input : ''})
         }
     }

@@ -2,6 +2,7 @@ body{
     margin: 0 auto;
     background-color: #f0f0f0;
 }
+
 .header{
     padding: 1rem 2rem;
     height: 50px;
@@ -9,11 +10,13 @@ body{
     background-color: #3fb75b;
     align-items: center;
 }
+
 .header__title{
     font-size: 2rem;
     color: #fff;
     margin: 0;
 }
+
 .main{
     padding: 1rem 2rem;
     display: flex;

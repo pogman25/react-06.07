@@ -1,38 +1,44 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom'
 import Message from "./Message";
 
-class HelloMessage extends Component {
-  constructor(props) {
-    super(props);
+class HelloMessage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            count: 0,
+            message: "пример",
+            messageArr: [],
+            newOneMessage: "нормально"
+        };
+        this.increment = this.increment.bind(this);
+        this.addMessage = this.addMessage.bind(this);
+    }
 
-    this.state = {
-      count: 0,
-      message: "пример",
-    };
-    this.increment = this.increment.bind(this);
-  }
+    increment() { this.setState( ({ count }) => ({ count: count + 1 })) }
+    addMessage() { this.setState( ({ messageArr }) => messageArr.push(this.state.newOneMessage) ) }
 
-  increment() {
-    this.setState(({ count }) => ({ count: count + 1 }));
-  }
+    render() {
+        const { count, message } = this.state;
+        const { name } = this.props;
 
-  render() {
-    const { count, message } = this.state;
-    const { name } = this.props;
-
-    return (
-      <div>
-        <Message name="GeekBrains" />
-        <p>Hello {name}!!!</p>
-        <p>{message}</p>
-        <p>{count}</p>
-        <button onClick={this.increment}>add</button>
-      </div>
-    );
-  }
+        return (
+            <div>
+                <p>Hello {name}!!!</p>
+                <p>{message}</p>
+                <p>{count}</p>
+                <button onClick={this.increment}>add</button>
+                <Message name="GeekBrains"
+                         addMessage={this.addMessage}
+                         messageArr={this.state.messageArr}
+                />
+            </div>
+        );
+    }
 }
 
-const element = document.getElementById("root");
+ReactDOM.render(
+    <HelloMessage name ='Artem' />,
+    document.getElementById('root')
+);
 
-ReactDOM.render(<HelloMessage name="Alex" />, element);

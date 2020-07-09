@@ -7,11 +7,7 @@ export default class Message extends Component {
     render(){
    
         let messageText
-        if (this.props.message.length > 0) {
-            messageText = <span className="message__text">{this.props.message}</span>
-        } else {
-            messageText = <span>{this.props.message}</span>
-        }
+        messageText = <span className="message__text">{this.props.message.name}: {this.props.message.text}</span>
         return(
             <div className="message">
                 {messageText}

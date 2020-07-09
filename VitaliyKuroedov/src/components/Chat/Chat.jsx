@@ -11,7 +11,7 @@ export default class Chat extends Component {
         let id = this.state.chats.length
         if (this.state.input != '') {
             this.setState({chats: [...this.state.chats,
-                id = {"name": "я", "text": this.state.input}]})
+                id = {name: "я", text: this.state.input}]})
             this.setState({input : ''})
         }
     }

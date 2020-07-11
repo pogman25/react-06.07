@@ -1,13 +1,13 @@
-import React from "react"
+import React, { useState } from "react";
 
-const Message = ({name}) => {
- return (
+const Message = ({ name }) => {
+  const [value, setValue] = useState("");
 
- <div>
- <h1>Hello, {name}!</h1>
+  return (
+    <div>
+      <h1>Привет, {name}!!!!!</h1>
+    </div>
+  );
+};
 
- </div>
- )
-}
-
-export default Message
+export default Message;

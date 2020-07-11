@@ -9,8 +9,8 @@ import FormMessage from "./FormMessage";
 class HelloMessage extends Component {
   state = {
     messages: [
-      { author: "user", text: "привет" },
-      { author: "user", text: "как дела" },
+      { author: "user", text: "привет"},
+      { author: "user", text: "как дела"},
     ],
     isVisible: false,
   };

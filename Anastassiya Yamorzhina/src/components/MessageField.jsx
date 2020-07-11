@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
-import Styles from './styles/App.css';
+import Styles from '../styles/App.css';
 
-class Textarea extends Component {
+class MessageField extends Component {
 
   constructor(props) {
     super(props);
@@ -63,8 +63,8 @@ class Textarea extends Component {
 }
 
 ReactDOM.render(
-  <Textarea />,
+  <MessageField />,
   document.getElementById("root")
 );
 
-export default Textarea;
+export default MessageField;

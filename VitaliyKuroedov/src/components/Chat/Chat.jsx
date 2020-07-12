@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react'
 import Message from '../Message/Message'
+import PropTypes from 'prop-types'
 
 export default class Chat extends Component {
     constructor(props){
@@ -21,37 +22,29 @@ export default class Chat extends Component {
         const currentMessage = this.state.chats
         const lastMessage = currentMessage[currentMessage.length -1]
     
-        console.log(currentMessage, 'currentMessage?')
-        console.log(lastMessage, 'lastmessage?')
-        
-
         if (lastMessage && lastMessage.name == 'я') {
             clearTimeout(this.state.timeoutId)
             this.state.timeoutId = setTimeout(() => this.handleSendMessage({
                 text: `Не приставай ко мне, я Бот-Компот`, 
                 name: 'бот-компот', 
-            }), 1000)
+            }), 100)
         }
     }
 
     handleSendMessage = (value) => {
-        
-        //if (id === undefined) return
-
         if (this.state.chats === undefined) {
             this.handleSyncChat()
         }
-        let id = this.state.chats.length -1
-        this.setState( state => ({
-            ...state,
-            chats: [...state.chats, value]
-        }), this.handleBotMessage())
-
-        this.setState({input : ''})
-        this.props.addMessage(value)
-        
+        if (this.state.input !== ''){
+            this.setState( state => ({
+                ...state,
+                chats: [...state.chats, value]
+            }), this.handleBotMessage())
+    
+            this.setState({input : ''})
+            this.props.addMessage(value)
+        }
     }
-
 
     handleClick = (value) => {
         this.handleSendMessage({name: 'я', text: value })
@@ -59,7 +52,7 @@ export default class Chat extends Component {
 
     handleKeyUp = (event) => {
         if (event.keyCode === 13) { // Enter
-            this.handleSendMessage()
+            this.handleSendMessage({name: 'я', text: this.state.input} )
         }
     }
     

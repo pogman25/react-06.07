@@ -1,32 +1,46 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
-import Message from "./Message";
+import Messages from "./Messages";
+import FormMessage from "./FormMessage";
 
 class HelloMessage extends Component {
-    constructor (props) {
-        super(props);
+  state = {
+    messages: [
+      { author: "user", text: "привет" },
+      { author: "user", text: "как дела" },
+    ],
+  };
 
-        this.state = {
-            arr: []
-        };
-        this.increment = this.increment.bind(this);
+  componentDidUpdate(prevProps, prevState) {
+    const { messages } = this.state;
+    if (messages[messages.length - 1].author !== "bot") {
+      setTimeout(() => {
+        this.setState(({ messages }) => ({
+          messages: [...messages, { author: "bot", text: "привет от бота" }],
+        }));
+      }, 1000);
     }
-    increment() {
-        const { arr } = this.state;
-        this.setState({arr: arr.concat(" нормально")}); // concat чтобы arr оставался (правильный_ответ ? массивом : объектом)
-    }
-    render() {
-        const { arr } = this.state;
+  }
 
-        return (
-            <div>
-                <Message name={"Александр Погорелов"}/>
-                <p>Настроение планеты: { arr }</p>
-                <button onClick={this.increment}>Добавить слово "нормально"</button>
-            </div>
-        )
-    }
+  addMessage = ({ author, text }) => {
+    this.setState(({ messages }) => ({
+      messages: [...messages, { author, text }],
+    }));
+  };
+
+  render() {
+    const { messages } = this.state;
+
+    return (
+      <div>
+        <Messages messages={messages} />
+        <FormMessage addMessage={this.addMessage} />
+      </div>
+    );
+  }
 }
+
 const element = document.getElementById("root");
 
-ReactDOM.render(<HelloMessage/>, element);
+ReactDOM.render(<HelloMessage />, element);

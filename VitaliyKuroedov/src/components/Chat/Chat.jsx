@@ -18,10 +18,12 @@ export default class Chat extends Component {
 
     handleBotMessage = () => {
         
-        const currentMessage = this.props.chats
+        const currentMessage = this.state.chats
         const lastMessage = currentMessage[currentMessage.length -1]
+    
         console.log(currentMessage, 'currentMessage?')
         console.log(lastMessage, 'lastmessage?')
+        
 
         if (lastMessage && lastMessage.name == 'я') {
             clearTimeout(this.state.timeoutId)
@@ -32,23 +34,27 @@ export default class Chat extends Component {
         }
     }
 
-    handleSendMessage = ({value}) => {
-        let content = {name: 'я', text: this.state.input}
+    handleSendMessage = (value) => {
         
-        if (value) {
-            content = value
-        }
+        //if (id === undefined) return
 
-        let id = this.props.chats.length
-        if (this.state.input != '') {
-             this.props.addMessage(content)
-            
-            this.setState({input : ''})
-            if(id > 0) {
-                this.handleBotMessage()
-
-            }
+        if (this.state.chats === undefined) {
+            this.handleSyncChat()
         }
+        let id = this.state.chats.length -1
+        this.setState( state => ({
+            ...state,
+            chats: [...state.chats, value]
+        }), this.handleBotMessage())
+
+        this.setState({input : ''})
+        this.props.addMessage(value)
+        
+    }
+
+
+    handleClick = (value) => {
+        this.handleSendMessage({name: 'я', text: value })
     }
 
     handleKeyUp = (event) => {
@@ -77,7 +83,7 @@ export default class Chat extends Component {
                             />
                         <button 
                             className="chat-action__button"
-                            onClick={this.handleSendMessage}>
+                            onClick={() => this.handleClick(this.state.input)}>
                             Жмак
                         </button>
                     </div>

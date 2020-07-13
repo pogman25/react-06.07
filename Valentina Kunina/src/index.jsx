@@ -1,42 +1,60 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import ReactDOM from "react-dom";
 import Message from "./Message";
+import Messages from "./Messages";
+import FormMessage from "./FormMessage";
+import PropTypes from "prop-types";
+import shortid from "shortid";
 
-class HelloMessage extends Component {
-    constructor(props) {
-        super(props);
+class HelloMessage extends PureComponent {
+    state = {
+        messages: [
+            { author: "user", text: "привет", id: shortid.generate() },
+            { author: "user", text: "как дела?", id: shortid.generate() },
+        ],
+    };
 
-        this.state = {
-            count: 0,
-            messages: "hi",
-        };
-        this.increment = this.increment.bind(this);
-        this.addMessage = this.addMessage.bind(this);
+    componentDidUpdate(prevProps, prevState) {
+        const { messages } = this.state;
+        if (messages[messages.length - 1].author !== "bot") {
+            setTimeout(() => {
+                this.setState(({ messages }) => ({
+                    messages: [
+                        ...messages,
+                        {
+                            author: "bot",
+                            text: "Привет от Бота",
+                            id: shortid.generate(),
+                        },
+                    ],
+                }));
+            }, 1000);
+        }
     }
 
-    increment() {
-        this.setState(({ count }) => ({ count: count + 1 }));
-    }
-
-    addMessage() {
-        this.setState({ messages: [...this.state.messages, " Нормально"] });
-    }
+    addMessage = ({ author, text, id = shortid.generate() }) => {
+        this.setState(({ messages }) => ({
+            messages: [...messages, { author, text, id }],
+        }));
+    };
 
     render() {
-        const { count, messages } = this.state;
+        const { messages } = this.state;
         const { name } = this.props;
 
         return (
             <div>
                 <Message name="World" />
                 <p>Привет, {name}</p>
-                <p>{messages}</p>
-                <button onClick={this.addMessage}>Добавить сообщение</button>
-                <p>{count}</p>
-                <button onClick={this.increment}>Add</button>
+                <Messages messages={messages} />
+                <FormMessage addMessage={this.addMessage} />
             </div>
         );
     }
 }
+
+HelloMessage.propTypes = {
+    name: PropTypes.string,
+};
 
 ReactDOM.render(<HelloMessage name="Саша" />, document.getElementById("root"));

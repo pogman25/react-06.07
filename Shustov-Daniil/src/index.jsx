@@ -1,45 +1,59 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Message from './Message';
+import Counter from './Counter';
+import Messages from './Messages';
+import FormMessage from './FormMessage';
 
 class HelloMessage extends Component {
-    constructor(props) {
-      super(props);
-
-      this.state = {
-        arr: [],
-        message: ''
-      };
-
-      this.increment = this.increment.bind(this);
-      this.changeMessage = this.changeMessage.bind(this);
+ 
+    state = {
+        messages: [
+          {author: 'user', text: 'привет'},
+          {author: 'user', text: 'как дела'}
+        ],
+        isVisible: false,   
     }
 
-
-    increment() {
-       const { arr, message } = this.state;
-       this.setState({ arr: [...arr, message]});
+    componentDidUpdate(prevProps, prevState) {
+      const { messages } = this.state;
+      
+      if (messages[messages.length-1].author !== 'bot') {
+        setTimeout(() => {
+          this.setState(({ messages }) => ({
+            messages: [...messages, {author: 'bot', text:'привет от бота'}]
+          }))
+        }, 1000)
+      }
     }
 
-    changeMessage(e) {
-      const { message } = this.state;
-      this.setState({ message: event.target.value});
+    addMessage = ({ author, text }) => {
+      this.setState(({ messages }) => ({messages: [...messages, {author, text}]}))
     }
 
     render() {
-      const { arr, message } = this.state;    
+      const { messages, isVisible } = this.state;    
       const { name } = this.props;
 
       return (
         <div>
           <Message name = 'GeekBrains' />
           <p>Hello { name }!!!</p>
-          <input type="text" placeholder = "Введите сообщение" value = { message } onChange = { this.changeMessage } />
-          <p>{ arr[arr.length-1] }</p>
-          <button onClick={this.increment}>add</button>
+          <Messages messages = {messages}/>
+          <FormMessage addMessage = {this.addMessage}/>
+          <div>
+            <button onClick = {() => this.setState({isVisible: !isVisible})}>{isVisible ? 'Hide' : 'Show'}</button>
+            {isVisible && <Counter />}
+          </div>
+          
         </div>
       );
     }
+  }
+
+  HelloMessage.propTypes = {
+    name: PropTypes.string.isRequired,
   }
 
   const element =  document.getElementById('root');

@@ -1,19 +1,27 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-class FormMessage extends Component {
+class Form extends Component {
   state = {
     author: "",
     text: "",
   };
 
   onSubmit = (e) => {
-    const {  } = this.props;
+    const { addItem } = this.props;
     e.preventDefault();
+    addItem(this.state.author, this.state.text);
+    this.state.author = '';
+    this.state.text =''
   };
 
   onChange = ({ target }) => {
     const { value, name } = target;
+    name ==="author"? this.setState({author: value}) : this.setState({text: value});
+  /* if(name === "author")
+    this.setState({author: value});
+    if(name === "text")
+    this.setState({text: value}); */
   };
 
   render() {
@@ -40,8 +48,8 @@ class FormMessage extends Component {
   }
 }
 
-FormMessage.propTypes = {
-  addMessage: PropTypes.func.isRequired,
+Form.propTypes = {
+  addItem: PropTypes.func.isRequired,
 };
 
-export default FormMessage;
+export default Form;

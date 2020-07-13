@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 const Messages = ({ messages }) => {
   return (
     <ul>
-      {messages.map(({ author, text }, index) => (
-        <li key={index}>
+      {messages.map(({ id, author, text }) => (
+        <li key={id}>
           <p>{`Author: ${author}`}</p>
           <p>{`message: ${text}`}</p>
         </li>
@@ -17,6 +17,7 @@ const Messages = ({ messages }) => {
 Messages.propTypes = {
   messages: PropTypes.arrayOf(
     PropTypes.shape({
+      id: PropTypes.string,
       author: PropTypes.string,
       text: PropTypes.string,
     })

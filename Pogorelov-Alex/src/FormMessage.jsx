@@ -8,12 +8,16 @@ class FormMessage extends Component {
   };
 
   onSubmit = (e) => {
-    const {  } = this.props;
     e.preventDefault();
+    const { addMessage } = this.props;
+    addMessage(this.state);
+    this.setState({ text: "" });
   };
 
   onChange = ({ target }) => {
     const { value, name } = target;
+
+    this.setState({ [name]: value });
   };
 
   render() {
@@ -24,8 +28,8 @@ class FormMessage extends Component {
         <input
           type="text"
           name="author"
-          onChange={this.onChange}
           value={author}
+          onChange={this.onChange}
         />
         <textarea
           name="text"

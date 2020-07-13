@@ -1,4 +1,5 @@
-import React from "react";
+import React, { memo } from "react";
+import PropTypes from "prop-types";
 
 const Message = ({ name }) => {
     return (
@@ -8,4 +9,8 @@ const Message = ({ name }) => {
     );
 };
 
-export default Message;
+Message.propTypes = {
+    name: PropTypes.string,
+};
+
+export default memo(Message);

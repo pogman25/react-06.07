@@ -2,15 +2,13 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: {
-    main: "./src/index.jsx",
-  },
+  entry: "./src/index.jsx",
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "app.js",
+    path: path.join(__dirname, "/dist"),
+    filename: "build.js"
   },
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions:['.js', '.jsx']
   },
   module: {
     rules: [
@@ -24,6 +22,10 @@ module.exports = {
             plugins: ["@babel/plugin-proposal-class-properties"],
           },
         },
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },

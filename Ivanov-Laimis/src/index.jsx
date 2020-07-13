@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { v4 as uuidv4 } from 'uuid';
 import ReactDOM from "react-dom";
 import Message from "./Message";
 import Counter from "./Counter";
@@ -9,8 +10,8 @@ import FormMessage from "./FormMessage";
 class HelloMessage extends Component {
   state = {
     messages: [
-      { author: "user", text: "привет"},
-      { author: "user", text: "как дела"},
+      { author: "user", text: "привет", uuidv4 },
+      { author: "user", text: "как дела",uuidv4 },
     ],
     isVisible: false,
   };
@@ -20,7 +21,7 @@ class HelloMessage extends Component {
     if (messages[messages.length - 1].author !== "bot") {
       setTimeout(() => {
         this.setState(({ messages }) => ({
-          messages: [...messages, { author: "bot", text: "привет от бота" }],
+          messages: [...messages, { author: "bot", text: "привет от бота",uuidv4 }],
         }));
       }, 1000);
     }
@@ -29,6 +30,7 @@ class HelloMessage extends Component {
   addMessage = ({ author, text }) => {
     this.setState(({ messages }) => ({
       messages: [...messages, { author, text }],
+     
     }));
   };
 

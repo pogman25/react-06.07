@@ -8,7 +8,16 @@ export default class App extends Component{
 
     state = {
         text: 'GB React',
-        title: "React GB"
+        title: "React GB",
+        chats: []
+    }
+
+    handleAddMessage = (message) => {
+        this.setState({
+            chats: [...this.state.chats,
+            message]
+        })
+       
     }
 
     render() {
@@ -16,10 +25,9 @@ export default class App extends Component{
             <Fragment>
                 <Header title={this.state.title} />   
                 <main className="main">
-                    <Chat/>
+                    <Chat chats={this.state.chats} addMessage={this.handleAddMessage}/>
                     <ChatLists/>
                 </main>
-                
             </Fragment>
         )
     }

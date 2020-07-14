@@ -1,12 +1,11 @@
 import React/*, { useState }*/ from "react";
 import PropTypes from "prop-types";
-import { v4 as uuidv4 } from 'uuid';
 
 const Message = ({ messages }) => {
     return (
       <ul>
-        {messages.map(({ author, text }, index) => (
-          <li key={index}>
+        {messages.map(({ id, author, text }) => (
+          <li key={id}>
             <p>{`Author: ${author}`}</p>
             <p>{`message: ${text}`}</p>
           </li>
@@ -17,9 +16,10 @@ const Message = ({ messages }) => {
 
 Message.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
     author: PropTypes.string,
     text: PropTypes.string
-  }))
-}
+  })).isRequired,
+};
 
 export default Message;

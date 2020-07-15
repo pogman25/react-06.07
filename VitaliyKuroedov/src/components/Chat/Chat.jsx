@@ -101,8 +101,7 @@ export default class Chat extends Component {
                             className="message-text__input"
                             onChange= {this.handleChange} 
                             value= {this.state.input} 
-                            onKeyUp={ (event) => this.handleKeyUp(event, this.state.input) }
-                            />
+                            onKeyUp={(event) => this.handleKeyUp(event, this.state.input)}/>
                         <IconButton  onClick={() => this.handleClick(this.state.input)}>
                             <SendRoundedIcon color="secondary"/>
                         </IconButton>

@@ -23,6 +23,37 @@ export default class Header extends Component{
         open: false,
         input: '',
     }
+    handleClickClose = () => {
+        this.setOpen(false)
+    }
+
+    handleClickOpen = () => {
+        this.setOpen(true)
+    }
+
+    setOpen = (value) => {
+        this.setState({open: value})
+    }
+
+    handleAddChat = () => {
+        if (this.state.input.length > 0) {
+            this.props.addChat(this.state.input)
+            this.handleClickClose()
+        }
+    }
+
+    handleChange = (event) => {
+        this.setState({input: event.target.value})
+    }
+
+    handleKeyUp = (event) => {
+        if (event.keyCode === 13) {
+            if (this.state.input.length > 0) {
+                this.props.addChat(this.state.input)
+                this.handleClickClose()
+            }
+        }
+    }
 
     render() {
         let title = ''
@@ -32,15 +63,44 @@ export default class Header extends Component{
             title = this.props.title
         }
         return(
-            <header className="header">
+            <Fragment>
                 <AppBar position="static">
                     <Toolbar variant="dense" className="header">
                         <Typography variant="h6" className="header__title">
                             {title}
                         </Typography>
+                        <Button variant="outlined" color="inherit" onClick={this.handleClickOpen}>
+                                Новый Чат
+                        </Button>
                     </Toolbar>
                 </AppBar>
-            </header>
+                <Dialog open={this.state.open} onClose={this.handleClickClose} aria-labelledby="form-dialog-title">
+                    <DialogTitle id="form-dialog-title">Новый чат</DialogTitle>
+                    <DialogContent>
+                    <DialogContentText>
+                        Введите имя собеседника
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Имя Собеседнка"
+                        onChange= {this.handleChange} 
+                        value= {this.state.input} 
+                        onKeyUp={ (event) => this.handleKeyUp(event, this.state.input) }
+                        fullWidth
+                    />
+                    </DialogContent>
+                    <DialogActions>
+                    <Button onClick={this.handleClickClose} color="primary">
+                        Отмена
+                    </Button>
+                    <Button onClick={this.handleAddChat} color="primary">
+                        Сохранить
+                    </Button>
+                    </DialogActions>
+                </Dialog>
+            </Fragment>
         )
     }
 }

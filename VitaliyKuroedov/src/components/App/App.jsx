@@ -6,7 +6,6 @@ import '../../css/style.css'
 import ChatLists from '../ChatLists/ChatLists'
 
 export default class App extends Component{
-
     state = {
         text: 'GB React',
         title: "React GB",
@@ -26,18 +25,24 @@ export default class App extends Component{
     }
 
     handleAddMessage = (id, message) => {
-        
         const newChats = this.state.chats
         const chat = newChats.find(item => item.id === id)
         chat.messages.push(message)
+        this.setState({newChats})
+    }
 
+    handleAddChat = (chatName) => {
+        const newChats = this.state.chats
+        const avatarId = newChats.length
+        const chat = {id: uuid(), userName: chatName, messages:[], avatar: `https://randomuser.me/api/portraits/med/men/${avatarId}.jpg`}
+        newChats.push(chat)
         this.setState({newChats})
     }
 
     render() {
         return (
             <Fragment>
-                <Header title={this.state.title} currentChatName={this.state.currentChatName} />   
+                <Header title={this.state.title} currentChatName={this.state.currentChatName} addChat={this.handleAddChat} />   
                 <main className="main">
                     <Chat chats={this.state.chats} addMessage={this.handleAddMessage} currentActiveChat={this.state.chats[0].id}/>
                     <ChatLists chats={this.state.chats} newChatName={this.handleCurrentChatName}/>

@@ -21,16 +21,16 @@ body{
 .container{
     display: flex;
     width: 100%;
-    max-width: 70%;
+    /* max-width: 70%; */
     height: 85vh;
     align-items: center;
     flex-direction: column;
 }
-
+/* 
 .chats-list{
     width: 100%;
     max-width: 30%;
-}
+} */
 
 .message-list{
     margin: 0 0 1rem 0;

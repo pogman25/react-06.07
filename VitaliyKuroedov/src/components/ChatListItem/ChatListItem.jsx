@@ -14,6 +14,7 @@ const styles = theme => ({
     },
 })
 class ChatListItem extends Component { 
+    
     render(){
         const { classes } = this.props
         return(

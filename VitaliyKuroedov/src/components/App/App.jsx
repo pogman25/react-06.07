@@ -4,12 +4,14 @@ import { uuid } from 'uuidv4'
 import Chat from '../Chat/Chat'
 import '../../css/style.css'
 import ChatLists from '../ChatLists/ChatLists'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 export default class App extends Component{
     state = {
         text: 'GB React',
         title: "React GB",
         currentChatName: '',
+        drawerIsOpen: false,
         chats: [
             {id: uuid(), avatar: 'https://v0.material-ui.com/images/ok-128.jpg', userName: 'Сушист', messages:[]},
             {id: uuid(), avatar: 'https://v0.material-ui.com/images/kolage-128.jpg', userName: 'Визажист', messages:[
@@ -22,6 +24,9 @@ export default class App extends Component{
 
     handleCurrentChatName = (newChatName) => {
         this.setState({currentChatName: newChatName})
+    }
+    handleDrawerOpen = () => {
+        this.setState({drawerIsOpen: !this.state.drawerIsOpen})
     }
 
     handleAddMessage = (id, message) => {
@@ -42,10 +47,10 @@ export default class App extends Component{
     render() {
         return (
             <Fragment>
-                <Header title={this.state.title} currentChatName={this.state.currentChatName} addChat={this.handleAddChat} />   
+                <Header title={this.state.title} currentChatName={this.state.currentChatName} addChat={this.handleAddChat} switchDrawer={this.handleDrawerOpen} />   
                 <main className="main">
                     <Chat chats={this.state.chats} addMessage={this.handleAddMessage} currentActiveChat={this.state.chats[0].id}/>
-                    <ChatLists chats={this.state.chats} newChatName={this.handleCurrentChatName}/>
+                    <ChatLists chats={this.state.chats} newChatName={this.handleCurrentChatName} switchDrawer={this.handleDrawerOpen} drawerIsOpen={this.state.drawerIsOpen}/>
                 </main>
             </Fragment>
         )

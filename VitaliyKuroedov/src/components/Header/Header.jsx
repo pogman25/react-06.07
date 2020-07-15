@@ -72,6 +72,9 @@ export default class Header extends Component{
                         <Button variant="outlined" color="inherit" onClick={this.handleClickOpen}>
                                 Новый Чат
                         </Button>
+                        <Button variant="outlined" color="inherit" onClick={this.props.switchDrawer}>
+                                Чаты
+                        </Button>
                     </Toolbar>
                 </AppBar>
                 <Dialog open={this.state.open} onClose={this.handleClickClose} aria-labelledby="form-dialog-title">

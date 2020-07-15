@@ -14,18 +14,30 @@ module.exports = {
     rules: [
       {
         test: /\.js(x)?$/,
-        exclude: /node_modules/,
-        use: ["babel-loader"]
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env", "@babel/preset-react"],
+            plugins: ["@babel/plugin-proposal-class-properties"],
+          },
+        },
       },
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"]
-      }
-    ]
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
+  devServer: {
+    contentBase: path.join(__dirname, "dist"),
+    compress: true,
+    port: 9000,
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html"
-    })
-  ]
+      filename: "index.html",
+      template: "src/index.html",
+    }),
+  ],
 };

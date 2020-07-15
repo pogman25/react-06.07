@@ -6,12 +6,20 @@ export default class Message extends Component {
         super(props)
     }
 
+    static PropTypes = {
+        name : PropTypes.string.isRequired,
+        text : PropTypes.string.isRequired
+    }
+
     render(){
         return(
             <div className="message"
-                style={ { alignSelf: this.props.message.name === "я" ? 
+                style={ { alignSelf: this.props.name === "я" ? 
                 'flex-start' : 'flex-end'}}>
-                <span className="message__text">{this.props.message.name}: {this.props.message.text}</span>
+                <div>
+                    <span className="">{this.props.name} : </span>
+                    <span className="">{this.props.text}</span>
+                </div>
             </div>
         )
     }

@@ -1,58 +1,81 @@
 import React, {Component, Fragment} from 'react'
 import Message from '../Message/Message'
+import { uuid } from 'uuidv4'
 import PropTypes from 'prop-types'
+import { TextField, IconButton } from '@material-ui/core'
+import SendRoundedIcon from '@material-ui/icons/SendRounded'
 
 export default class Chat extends Component {
     constructor(props){
         super(props)
     }
 
+    static PropTypes = {
+        chats: PropTypes.arrayOf(
+            PropTypes.shape({
+                id: PropTypes.string.isRequired,
+                userName: PropTypes.string.isRequired,
+                avatar: PropTypes.string.isRequired,
+                messages: PropTypes.arrayOf(
+                    PropTypes.shape({
+                        id: PropTypes.string.isRequired,
+                        name: PropTypes.string.isRequired,
+                        text: PropTypes.string.isRequired
+                    })
+                )
+            })
+        )
+    }
+
     state = {
         input: '',
-        timeoutId: null,
-        chats: this.props.chats
+        chats: this.props.chats,
+        selectedChat: this.props.currentActiveChat,
+        timeoutId: null
     }
 
     handleSyncChat = () => {
         this.state.chats = this.props.chats
     }
 
-    handleBotMessage = () => {
-        
-        const currentMessage = this.state.chats
-        const lastMessage = currentMessage[currentMessage.length -1]
+    handleBotMessage = (id) => {
+        if (id === undefined) return
+
+        const chat = this.props.chats.find(item => item.id === id)
+        const lastMessage = chat.messages[chat.messages.length -1]
     
-        if (lastMessage && lastMessage.name == 'я') {
-            clearTimeout(this.state.timeoutId)
-            this.state.timeoutId = setTimeout(() => this.handleSendMessage({
+        if (lastMessage && lastMessage.name === 'я') {
+            this.handleSendMessage(id, {
+                id: uuid(),
                 text: `Не приставай ко мне, я Бот-Компот`, 
                 name: 'бот-компот', 
-            }), 100)
+            })
         }
     }
 
-    handleSendMessage = (value) => {
+    handleSendMessage = (id, value) => {
+
+        if (id === undefined) return
+
         if (this.state.chats === undefined) {
             this.handleSyncChat()
         }
-        if (this.state.input !== ''){
-            this.setState( state => ({
-                ...state,
-                chats: [...state.chats, value]
-            }), this.handleBotMessage())
-    
-            this.setState({input : ''})
-            this.props.addMessage(value)
+
+        if (this.state.input !== '') {
+            this.props.addMessage(this.props.currentActiveChat, value)
+            this.setState({input : ''}, 
+                this.handleBotMessage(this.props.currentActiveChat)
+            )
         }
     }
 
     handleClick = (value) => {
-        this.handleSendMessage({name: 'я', text: value })
+        this.handleSendMessage(this.props.currentActiveChat, {id: uuid(), name: 'я', text: value })
     }
 
     handleKeyUp = (event) => {
         if (event.keyCode === 13) { // Enter
-            this.handleSendMessage({name: 'я', text: this.state.input} )
+            this.handleSendMessage(this.props.currentActiveChat, {id: uuid(), name: 'я', text: this.state.input} )
         }
     }
     
@@ -61,27 +84,32 @@ export default class Chat extends Component {
     }
     
     render(){
+        const id = this.props.chats.find(item => item.id === this.props.currentActiveChat)
+        const messageElements = id.messages.map((item) => <Message {...item} key={item.id}/>) 
         return(
             <Fragment>
-                <section className="chat-container">
-                    <div className="chat-list">
-                        {this.props.chats.map((message, index) => ( <Message message={message} key={index} /> ))}
+                <section className="container">
+                    <div className="message-list">
+                        {messageElements}
                     </div>
-                    <div className="chat-actions">
-                        <input 
-                            className="input"
-                            value = {this.state.input} 
-                            onKeyUp={ (event) => this.handleKeyUp(event, this.state.input) }
+                    <div className="message__action">
+                        <TextField
+                            name="input"
+                            color="secondary"
+                            fullWidth={true}
+                            label="Введите сообщение"
+                            className="message-text__input"
                             onChange= {this.handleChange} 
+                            value= {this.state.input} 
+                            onKeyUp={ (event) => this.handleKeyUp(event, this.state.input) }
                             />
-                        <button 
-                            className="chat-action__button"
-                            onClick={() => this.handleClick(this.state.input)}>
-                            Жмак
-                        </button>
+                        <IconButton  onClick={() => this.handleClick(this.state.input)}>
+                            <SendRoundedIcon color="secondary"/>
+                        </IconButton>
                     </div>
                 </section>
             </Fragment>
         )
     }
+
 }

@@ -13,9 +13,7 @@ const styles = theme => ({
       backgroundColor: theme.palette.background.paper,
     },
 })
-
 class ChatListItem extends Component { 
-    
     render(){
         const { classes } = this.props
         return(

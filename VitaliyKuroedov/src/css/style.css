@@ -4,9 +4,8 @@ body{
 
 .header{
     height: 50px;
-    display: flex;
     background-color: #3fb75b;
-    align-items: center;
+    justify-content: space-between;
 }
 
 .header__title{

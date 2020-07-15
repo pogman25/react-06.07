@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { List, ListSubheader, Tooltip } from '@material-ui/core'
 import ChatListItem from '../ChatListItem/ChatListItem'
-
-
 export default class ChatLists extends Component{
     render(){
         return(

@@ -1,6 +1,6 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
-import shortid from "shortid";
+// import cx from "classnames"; подключение своих стилей
 
 const Messages = ({ messages }) => {
     //исп-ся State, если необходимо CDUP

@@ -1,0 +1,6 @@
+.spa {
+  display: grid;
+  grid-template-areas: 'header header' 'chatList messageField';
+  grid-template-columns: 20% 80%;
+  grid-template-rows: 70px 10fr;
+}

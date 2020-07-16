@@ -1,6 +1,6 @@
 import React, { memo, useEffect } from "react";
 import PropTypes from "prop-types";
-import "../styles/Messages.css";
+
 
 const Messages = ({ messages }) => {
   return (

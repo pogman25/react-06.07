@@ -1,10 +1,13 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 module.exports = {
-  entry: './src/index.jsx',
+  entry: {
+    main: "./src/index.jsx",
+  },
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'app.js',
+    path: path.resolve(__dirname, "dist"),
+    filename: "app.js",
   },
   resolve: {
     extensions: [".js", ".jsx"],
@@ -18,20 +21,21 @@ module.exports = {
           loader: "babel-loader",
           options: {
             presets: ["@babel/preset-env", "@babel/preset-react"],
+            plugins: ["@babel/plugin-proposal-class-properties"],
           },
         },
       },
     ],
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname, "dist"),
     compress: true,
-    port: 9000
+    port: 9000,
   },
   plugins: [
-   new HtmlWebpackPlugin ({
-        filename: 'index.html',
-        template: './src/index.html'
-    })
-  ]
+    new HtmlWebpackPlugin({
+      filename: "index.html",
+      template: "src/index.html",
+    }),
+  ],
 };

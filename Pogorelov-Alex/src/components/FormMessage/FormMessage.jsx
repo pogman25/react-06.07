@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
+import { withRouter } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -20,7 +22,7 @@ class FormMessage extends Component {
   onSubmit = e => {
     e.preventDefault();
     const { addMessage } = this.props;
-    addMessage(this.state);
+    addMessage({ ...this.state, id: uuidv4() });
     this.setState({ text: '' });
   };
 
@@ -32,7 +34,10 @@ class FormMessage extends Component {
 
   render() {
     const { author, text } = this.state;
-    const { classes } = this.props;
+    const {
+      classes,
+      match: { params },
+    } = this.props;
 
     return (
       <form className={classes.form} onSubmit={this.onSubmit}>
@@ -51,14 +56,15 @@ class FormMessage extends Component {
           value={text}
           onChange={this.onChange}
         />
-        <button type="submit">add Message</button>
+        <button type="submit">{`add Message to ${params?.chatId}`}</button>
       </form>
     );
   }
 }
 
 FormMessage.propTypes = {
+  classes: PropTypes.object,
   addMessage: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(FormMessage);
+export default withStyles(styles)(withRouter(FormMessage));

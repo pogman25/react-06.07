@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import { makeStyles } from '@material-ui/core';
+import { useParams, useRouteMatch } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -60,7 +61,7 @@ const Header = () => {
           noWrap
           className={classes.title}
         >
-          Dashboard
+          {`Dashboard of Chat `}
         </Typography>
         <IconButton color="inherit">
           <Badge badgeContent={4} color="secondary">

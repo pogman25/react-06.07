@@ -4,13 +4,15 @@ import Layout from '../../components/Layout/Layout';
 import Home from '../Home/Home';
 import About from '../About/About';
 import EmptyPage from '../EmptyPage';
+import Chats from '../Chats/Chats';
 
 const RootRouter = () => {
   return (
     <Layout>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/about" component={About} />
+        <Route path="/about" render={() => <About />} />
+        <Route path="/chats/:chatId" component={Chats} />
         <Route component={EmptyPage} />
       </Switch>
     </Layout>

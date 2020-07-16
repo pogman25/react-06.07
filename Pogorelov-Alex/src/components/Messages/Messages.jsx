@@ -20,7 +20,7 @@ const Messages = ({ messages }) => {
 Messages.propTypes = {
   messages: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       author: PropTypes.string,
       text: PropTypes.string,
     }),

@@ -11,7 +11,9 @@ const RootRouter = () => {
     <Layout>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/about" render={() => <About />} />
+        <Route path="/about">
+          <About />
+        </Route>
         <Route path="/chats/:chatId" component={Chats} />
         <Route component={EmptyPage} />
       </Switch>

@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
+import { Box } from '@material-ui/core';
 import { Messages, FormMessage } from '../../components';
 
 class Chats extends Component {
@@ -25,19 +28,22 @@ class Chats extends Component {
 
   timer = null;
 
-  componentDidUpdate(prevProps, prevState) {
-    // if (prevState.messages === this.state.messages) {
-    //   return;
-    // }
-    // const { messages } = this.state;
-    // clearTimeout(this.timer);
-    // if (messages[messages.length - 1].author !== 'bot') {
-    //   this.timer = setTimeout(() => {
-    //     this.setState(({ messages }) => ({
-    //       messages: [...messages, { author: 'bot', text: 'привет от бота', id: uuidv4() }],
-    //     }));
-    //   }, 1000);
-    // }
+  componentDidUpdate(_, prevState) {
+    const {
+      match: { params },
+    } = this.props;
+    const { chatId } = params;
+    const { chats } = this.state;
+    const { messageList } = chats[chatId];
+    if (prevState.chats[chatId].messageList.length !== messageList.length) {
+      clearTimeout(this.timer);
+      const messages = this.messages;
+      if (messages[messages.length - 1].author !== 'bot') {
+        this.timer = setTimeout(() => {
+          this.addMessage({ id: uuidv4(), author: 'bot', text: 'Я бот' });
+        }, 1000);
+      }
+    }
   }
 
   get messages() {
@@ -71,12 +77,20 @@ class Chats extends Component {
 
   render() {
     return (
-      <>
+      <Box p={3} mt={2} flexGrow={1}>
         <Messages messages={this.messages} />
         <FormMessage addMessage={this.addMessage} />
-      </>
+      </Box>
     );
   }
 }
+
+Chats.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      chatId: PropTypes.string,
+    }),
+  }).isRequired,
+};
 
 export default Chats;

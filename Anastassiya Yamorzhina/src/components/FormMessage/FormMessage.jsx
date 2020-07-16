@@ -1,6 +1,9 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import "../styles/FormMessage.css";
+import Button from "../../components/Dashboard/Button";
+import Multiline from "../Dashboard/Multiline";
+import InputForm from "../Dashboard/InputForm";
+
 
 const initialState = {
   author: "",
@@ -24,6 +27,8 @@ class FormMessage extends Component {
     this.setState({isTextError: false});
     this.setState({isAuthorError: false});
 
+    console.log(this.state);
+
     if(this.state.text.length > 0 && this.state.author.length > 2) {
       addMessage(this.state);
       this.setState({...initialState}); // короткий вариант очистки полей
@@ -36,17 +41,13 @@ class FormMessage extends Component {
       }
 
     }
-
-
-    // this.state.text = '';
-    // this.state.author = ''; // очищаем поля после клика на кнопку
-
-
   };
 
   onChange = ({target}) => {
     const {value, name} = target;
     this.setState({[name]: value});
+
+    console.log('onChange');
   };
 
   render() {
@@ -68,22 +69,11 @@ class FormMessage extends Component {
 
     return (
       <form onSubmit={this.onSubmit} className="form">
-        <input
-          className={inputStyle}
-          type="text"
-          name="author"
-          onChange={this.onChange}
-          value={author}
-        />
-        <textarea
-          className={className}
-          name="text"
-          cols="30"
-          rows="5"
-          value={text}
-          onChange={this.onChange}
-        />
-        <button type="submit" className="btn">Send</button>
+        <InputForm onChange={this.onChange} ></InputForm>
+
+        <Multiline onChange={this.onChange}></Multiline>
+
+        <Button></Button>
       </form>
     );
   }

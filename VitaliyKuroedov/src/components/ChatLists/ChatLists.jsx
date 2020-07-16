@@ -9,9 +9,7 @@ export default class ChatLists extends Component{
                 <Drawer 
                     open={this.props.drawerIsOpen} 
                     anchor="right"
-                    onClose={this.props.switchDrawer}
-                    >
-                    
+                    onClose={this.props.switchDrawer}>
                     <List>
                         <ListSubheader>
                             Последние Чаты

@@ -9,7 +9,7 @@ const useStyle = makeStyles(theme => ({
     flexGrow: 1,
     height: '100vh',
     overflow: 'auto',
-    marginTop: theme.spacing(9),
+    paddingTop: theme.spacing(9),
   },
   root: {
     display: 'flex',
@@ -29,7 +29,8 @@ const Layout = ({ children }) => {
 };
 
 Layout.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element])
+    .isRequired,
 };
 
 export default Layout;

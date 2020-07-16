@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
-import { withRouter } from 'react-router-dom';
-import TextField from '@material-ui/core/TextField';
+import { TextField, IconButton } from '@material-ui/core';
+import SendIcon from '@material-ui/icons/Send';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = {
+const styles = theme => ({
   form: {
     display: 'flex',
-    flexDirection: 'column',
     alignItems: 'flex-start',
+    justifyContent: 'center',
+    marginTop: theme.spacing(4),
   },
-};
+});
 
 class FormMessage extends Component {
   state = {
@@ -21,9 +22,7 @@ class FormMessage extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const { addMessage } = this.props;
-    addMessage({ ...this.state, id: uuidv4() });
-    this.setState({ text: '' });
+    this.sendMessage();
   };
 
   onChange = ({ target }) => {
@@ -32,21 +31,34 @@ class FormMessage extends Component {
     this.setState({ [name]: value });
   };
 
+  sendMessage = () => {
+    const { addMessage } = this.props;
+    const { text, author } = this.state;
+
+    addMessage({ author, text, id: uuidv4() });
+    this.setState({
+      text: '',
+    });
+  };
+
+  onKeyDown = e => {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+      this.sendMessage();
+    }
+  };
+
   render() {
     const { author, text } = this.state;
-    const {
-      classes,
-      match: { params },
-    } = this.props;
+    const { classes } = this.props;
 
     return (
       <form className={classes.form} onSubmit={this.onSubmit}>
         <TextField
           label="Author"
-          variant="outlined"
           name="author"
           value={author}
           onChange={this.onChange}
+          required
         />
         <TextField
           name="text"
@@ -55,16 +67,22 @@ class FormMessage extends Component {
           rowsMax={4}
           value={text}
           onChange={this.onChange}
+          onKeyDown={this.onKeyDown}
+          required
         />
-        <button type="submit">{`add Message to ${params?.chatId}`}</button>
+        <IconButton type="submit" color="primary">
+          <SendIcon />
+        </IconButton>
       </form>
     );
   }
 }
 
 FormMessage.propTypes = {
-  classes: PropTypes.object,
+  classes: PropTypes.shape({
+    form: PropTypes.string,
+  }).isRequired,
   addMessage: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(withRouter(FormMessage));
+export default withStyles(styles)(FormMessage);

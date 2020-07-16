@@ -4,14 +4,18 @@ import Drawer from '@material-ui/core/Drawer';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import { makeStyles, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import {
+  makeStyles,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+} from '@material-ui/core';
 import PeopleIcon from '@material-ui/icons/People';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import LayersIcon from '@material-ui/icons/Layers';
+import MenuIcon from '@material-ui/icons/Menu';
 import { DRAWER_WIDTH } from '../../utils/constants';
-import pageList from './pageList';
+import { pageList, chatList } from './pageList';
 
 const useStyles = makeStyles(theme => ({
   drawerPaper: {
@@ -29,6 +33,9 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-end',
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
+  },
+  bottomLinks: {
+    marginTop: 'auto',
   },
 }));
 
@@ -49,33 +56,26 @@ const ChatList = () => {
         </IconButton>
       </div>
       <Divider />
+      <Typography variant="h5">Chats</Typography>
       <List>
-        <ListItem button>
-          <ListItemIcon>
-            <DashboardIcon />
-          </ListItemIcon>
-          <ListItemText primary="Dashboard" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <ShoppingCartIcon />
-          </ListItemIcon>
-          <ListItemText primary="Orders" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <PeopleIcon />
-          </ListItemIcon>
-          <ListItemText primary="Customers" />
-        </ListItem>
-      </List>
-      <Divider />
-      <List>
-        {pageList.map(({ id, title, slug }) => (
+        {chatList.map(({ id, title, slug }) => (
           <Link key={id} to={slug}>
             <ListItem button>
               <ListItemIcon>
                 <PeopleIcon />
+              </ListItemIcon>
+              <ListItemText primary={title} />
+            </ListItem>
+          </Link>
+        ))}
+      </List>
+      <Divider />
+      <List className={classes.bottomLinks}>
+        {pageList.map(({ id, title, slug }) => (
+          <Link key={id} to={slug}>
+            <ListItem button>
+              <ListItemIcon>
+                <MenuIcon />
               </ListItemIcon>
               <ListItemText primary={title} />
             </ListItem>

@@ -3,9 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { BrowserRouter } from 'react-router-dom';
-import Messages from '../Messages';
-import FormMessage from '../FormMessage';
-import Layout from '../Layout/Layout';
 import RootRouter from '../../pages/RootRouter/RootRouter';
 
 const theme = createMuiTheme();
@@ -45,10 +42,6 @@ class App extends Component {
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          {/* <Layout>
-            <Messages messages={messages} />
-            <FormMessage addMessage={this.addMessage} />
-          </Layout> */}
           <RootRouter />
         </ThemeProvider>
       </BrowserRouter>

@@ -1,17 +1,17 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: {
-    main: "./src/index.jsx",
+    main: './src/index.jsx',
   },
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "app.js",
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'app.js',
   },
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: ['.js', '.jsx'],
   },
   module: {
     rules: [
@@ -19,10 +19,10 @@ module.exports = {
         test: /\.js(x)?$/,
         exclude: /(node_modules|bower_components)/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"],
-            plugins: ["@babel/plugin-proposal-class-properties"],
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+            plugins: ['@babel/plugin-proposal-class-properties'],
           },
         },
       },
@@ -35,7 +35,7 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               modules: {
                 localIdentName: '[path][name]__[local]--[hash:base64:5]',
@@ -47,14 +47,15 @@ module.exports = {
     ],
   },
   devServer: {
-    contentBase: path.join(__dirname, "dist"),
+    contentBase: path.join(__dirname, 'dist'),
     compress: true,
     port: 9000,
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: "index.html",
-      template: "src/index.html",
+      filename: 'index.html',
+      template: 'src/index.html',
     }),
     new MiniCssExtractPlugin(),
   ],

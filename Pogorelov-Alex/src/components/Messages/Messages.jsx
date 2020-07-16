@@ -1,17 +1,19 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
+import { Container, Box } from '@material-ui/core';
 
 const Messages = ({ messages }) => {
   return (
-    <ul>
-      {messages.map(({ id, author, text }) => (
-        <li key={id}>
-          <p>{`Author: ${author}`}</p>
-          <p>{`message: ${text}`}</p>
-        </li>
-      ))}
-    </ul>
+    <Container maxWidth="md">
+      <Box display="flex" flexDirection="column">
+        {messages.map(({ id, author, text }) => (
+          <Box key={id} alignSelf={author === 'bot' ? 'flex-end' : 'flex-start'}>
+            <p>{`Author: ${author}`}</p>
+            <p>{`message: ${text}`}</p>
+          </Box>
+        ))}
+      </Box>
+    </Container>
   );
 };
 

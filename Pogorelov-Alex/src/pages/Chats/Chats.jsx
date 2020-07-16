@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { Box } from '@material-ui/core';
+import produce from 'immer';
 import { Messages, FormMessage } from '../../components';
 
 class Chats extends Component {
@@ -29,13 +30,9 @@ class Chats extends Component {
   timer = null;
 
   componentDidUpdate(_, prevState) {
-    const {
-      match: { params },
-    } = this.props;
-    const { chatId } = params;
     const { chats } = this.state;
-    const { messageList } = chats[chatId];
-    if (prevState.chats[chatId].messageList.length !== messageList.length) {
+    const { messageList } = chats[this.chatId];
+    if (prevState.chats[this.chatId].messageList.length !== messageList.length) {
       clearTimeout(this.timer);
       const messages = this.messages;
       if (messages[messages.length - 1].author !== 'bot') {
@@ -47,32 +44,25 @@ class Chats extends Component {
   }
 
   get messages() {
+    const { chats, messages } = this.state;
+    return chats[this.chatId]?.messageList.map(mid => messages[mid]);
+  }
+
+  get chatId() {
     const {
       match: { params },
     } = this.props;
-    const { chats, messages } = this.state;
-
-    return chats[params.chatId]?.messageList.map(mid => messages[mid]);
+    const { chatId } = params;
+    return chatId;
   }
 
   addMessage = ({ id, author, text }) => {
-    const {
-      match: { params },
-    } = this.props;
-
-    this.setState(({ chats, messages }) => ({
-      chats: {
-        ...chats,
-        [params.chatId]: {
-          ...chats[params.chatId],
-          messageList: [...chats[params.chatId].messageList, id],
-        },
-      },
-      messages: {
-        ...messages,
-        [id]: { id, author, text },
-      },
-    }));
+    this.setState(
+      produce(draft => {
+        draft.chats[this.chatId].messageList.push(id);
+        draft.messages[id] = { id, author, text };
+      }),
+    );
   };
 
   render() {

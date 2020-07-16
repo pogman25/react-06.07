@@ -1,27 +1,27 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import TextField from "@material-ui/core/TextField";
-import { withStyles } from "@material-ui/core/styles";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   form: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
   },
 };
 
 class FormMessage extends Component {
   state = {
-    author: "",
-    text: "",
+    author: '',
+    text: '',
   };
 
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault();
     const { addMessage } = this.props;
     addMessage(this.state);
-    this.setState({ text: "" });
+    this.setState({ text: '' });
   };
 
   onChange = ({ target }) => {

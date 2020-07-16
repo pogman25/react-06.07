@@ -1,25 +1,25 @@
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core';
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(theme => {
   return {
     root: {
-      display: "flex",
+      display: 'flex',
     },
     toolbar: {
       paddingRight: theme.spacing(3),
     },
     toolbarIcon: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "flex-end",
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
       padding: theme.spacing(0, 1),
       ...theme.mixins.toolbar,
     },
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
-      transition: theme.transitions.create(["width", "margin"], {
+      transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => {
     appBarShift: {
       marginLeft: drawerWidth,
       width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(["width", "margin"], {
+      transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
       }),
@@ -36,36 +36,36 @@ const useStyles = makeStyles((theme) => {
       marginRight: 36,
     },
     menuButtonHidden: {
-      display: "none",
+      display: 'none',
     },
     title: {
       flexGrow: 1,
     },
     drawerPaper: {
-      position: "relative",
-      whiteSpace: "nowrap",
+      position: 'relative',
+      whiteSpace: 'nowrap',
       width: drawerWidth,
-      transition: theme.transitions.create("width", {
+      transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
       }),
     },
     drawerPaperClose: {
-      overflowX: "hidden",
-      transition: theme.transitions.create("width", {
+      overflowX: 'hidden',
+      transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
       width: theme.spacing(7),
-      [theme.breakpoints.up("sm")]: {
+      [theme.breakpoints.up('sm')]: {
         width: theme.spacing(9),
       },
     },
     appBarSpacer: theme.mixins.toolbar,
     content: {
       flexGrow: 1,
-      height: "100vh",
-      overflow: "auto",
+      height: '100vh',
+      overflow: 'auto',
     },
     container: {
       paddingTop: theme.spacing(4),
@@ -73,9 +73,9 @@ const useStyles = makeStyles((theme) => {
     },
     paper: {
       padding: theme.spacing(2),
-      display: "flex",
-      overflow: "auto",
-      flexDirection: "column",
+      display: 'flex',
+      overflow: 'auto',
+      flexDirection: 'column',
     },
     fixedHeight: {
       height: 240,

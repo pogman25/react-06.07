@@ -48,7 +48,7 @@ export default class Chat extends Component {
             this.handleSendMessage(id, {
                 id: uuid(),
                 text: `Не приставай ко мне, я Бот-Компот`, 
-                name: 'бот-компот', 
+                name: chat.userName, 
             })
         }
     }
@@ -85,7 +85,10 @@ export default class Chat extends Component {
     
     render(){
         const id = this.props.chats.find(item => item.id === this.props.currentActiveChat)
-        const messageElements = id.messages.map((item) => <Message {...item} key={item.id}/>) 
+        let messageElements = <span>выберите чат</span>
+        if (id !== undefined) {
+            messageElements = id.messages.map((item) => <Message {...item} avatar={id.avatar} key={item.id}/>) 
+        } 
         return(
             <Fragment>
                 <section className="container">

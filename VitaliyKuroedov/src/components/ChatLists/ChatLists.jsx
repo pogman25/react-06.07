@@ -14,7 +14,7 @@ export default class ChatLists extends Component{
                         <ListSubheader>
                             Последние Чаты
                         </ListSubheader>
-                        {this.props.chats.map(  (item) => <ChatListItem key={item.id} switchDrawer={this.props.switchDrawer} {...item} newChatName={this.props.newChatName}/>)}
+                        {this.props.chats.map( (item) => <ChatListItem key={item.id} switchDrawer={this.props.switchDrawer} {...item} newChatName={this.props.newChatName}/>)}
                     </List>
                 </Drawer>
 

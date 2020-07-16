@@ -18,9 +18,9 @@ class ChatListItem extends Component {
     render(){
         const { classes } = this.props
         return(
-            //<Link to={'/'+this.props.data.id} className='link' onClick={() => {this.props.handleCurrentChatName(this.props.data.name)}} >
-            <Tooltip title={this.props.userName} arrow>
-                <ListItem className={classes.root} onClick={() => {this.props.newChatName(this.props.userName)}}>
+            <Link to={'/'+this.props.id} className='link' onClick={() => {this.props.newChatName(this.props.id, this.props.userName)}} >
+                <Tooltip title={this.props.userName} arrow>
+                <ListItem className={classes.root} onClick={() => {this.props.newChatName(this.props.id, this.props.userName)}}>
                     <ListItemAvatar>
                         <Avatar src={this.props.avatar}/>
                     </ListItemAvatar>
@@ -32,7 +32,7 @@ class ChatListItem extends Component {
                     </ListItemIcon>
                 </ListItem>
             </Tooltip>
-           // </Link>
+            </Link>
         )
     }
 }

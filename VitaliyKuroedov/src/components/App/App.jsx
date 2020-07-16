@@ -6,11 +6,15 @@ import '../../css/style.css'
 import ChatLists from '../ChatLists/ChatLists'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
+
+//{this.state.chats[0].id} 
+
 export default class App extends Component{
     state = {
         text: 'GB React',
         title: "React GB",
         currentChatName: '',
+        currentActiveChat: null,
         drawerIsOpen: false,
         chats: [
             {id: uuid(), avatar: 'https://v0.material-ui.com/images/ok-128.jpg', userName: 'Сушист', messages:[]},
@@ -22,8 +26,8 @@ export default class App extends Component{
         ]
     }
 
-    handleCurrentChatName = (newChatName) => {
-        this.setState({currentChatName: newChatName})
+    handleCurrentChatName = (id, newChatName) => {
+        this.setState({currentChatName: newChatName, currentActiveChat: id})
     }
     handleDrawerOpen = () => {
         this.setState({drawerIsOpen: !this.state.drawerIsOpen})
@@ -47,11 +51,27 @@ export default class App extends Component{
     render() {
         return (
             <Fragment>
-                <Header title={this.state.title} currentChatName={this.state.currentChatName} addChat={this.handleAddChat} switchDrawer={this.handleDrawerOpen} />   
-                <main className="main">
-                    <Chat chats={this.state.chats} addMessage={this.handleAddMessage} currentActiveChat={this.state.chats[0].id}/>
-                    <ChatLists chats={this.state.chats} newChatName={this.handleCurrentChatName} switchDrawer={this.handleDrawerOpen} drawerIsOpen={this.state.drawerIsOpen}/>
-                </main>
+                <BrowserRouter>
+                    <Header title={this.state.title} currentChatName={this.state.currentChatName} addChat={this.handleAddChat} switchDrawer={this.handleDrawerOpen} />   
+                    <main className="main">
+                        <Switch>
+                            <Route path='/'>
+                                <Switch>
+                                    <Route 
+                                        path='/' 
+                                        exact 
+                                        render={(props) => <Chat {...props} chats={this.state.chats} addMessage={this.handleAddMessage} currentActiveChat={this.state.currentActiveChat} />}/> 
+                                    <Route 
+                                        path='/:id' 
+                                        exact 
+                                        render={(props) => <Chat {...props} chats={this.state.chats} addMessage={this.handleAddMessage} currentActiveChat={this.state.currentActiveChat} />}/>
+                                </Switch>
+                                <ChatLists chats={this.state.chats} newChatName={this.handleCurrentChatName} switchDrawer={this.handleDrawerOpen} drawerIsOpen={this.state.drawerIsOpen}/>
+                            </Route>
+                        </Switch>
+
+                    </main>
+                </BrowserRouter>
             </Fragment>
         )
     }

@@ -1,6 +1,6 @@
-import React, { memo, useEffect } from "react";
-import PropTypes from "prop-types";
-import cx from "classnames";
+import React, { memo, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import cx from 'classnames';
 
 const Messages = ({ messages }) => {
   return (
@@ -21,7 +21,7 @@ Messages.propTypes = {
       id: PropTypes.string,
       author: PropTypes.string,
       text: PropTypes.string,
-    })
+    }),
   ).isRequired,
 };
 

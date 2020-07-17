@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-const App = () => {
+const app = () => {
     const [text, setText] = useState('')
     const [messages, setMessages] = useState([])
 
@@ -22,4 +22,4 @@ const App = () => {
         </div>
 }
 
-export default App
+export default app

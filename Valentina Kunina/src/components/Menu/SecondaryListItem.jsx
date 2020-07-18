@@ -1,17 +1,15 @@
 import React from "react";
 import {
-    ListSubheader,
     ListItem,
     ListItemIcon,
     ListItemText,
 } from "@material-ui/core";
-import SettingsIcon from '@material-ui/icons/Settings';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import SettingsIcon from "@material-ui/icons/Settings";
+import MailOutlineIcon from "@material-ui/icons/MailOutline";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 export const secondaryListItems = (
     <div>
-        <ListSubheader inset>Saved reports</ListSubheader>
         <ListItem button>
             <ListItemIcon>
                 <SettingsIcon />

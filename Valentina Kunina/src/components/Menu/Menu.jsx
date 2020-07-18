@@ -19,6 +19,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import useStyles from "./useStyles";
 import { mainListItems } from "./MainListItem";
 import { secondaryListItems } from "./SecondaryListItem";
+import { Box } from "@material-ui/core";
 
 export default function Menu() {
     const classes = useStyles();
@@ -32,7 +33,7 @@ export default function Menu() {
     const fixedHeightPaper = cx(classes.paper, classes.fixedHeight);
 
     return (
-        <div className={classes.root}>
+        <Box className={classes.root}>
             <AppBar
                 position="absolute"
                 className={cx(classes.appBar, open && classes.appBarShift)}
@@ -86,6 +87,6 @@ export default function Menu() {
                 <Divider />
                 <List>{secondaryListItems}</List>
             </Drawer>
-        </div>
+        </Box>
     );
 }

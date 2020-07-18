@@ -9,6 +9,13 @@ import { Box, Container } from "@material-ui/core";
 
 const theme = createMuiTheme();
 
+const style = {
+    display: "flex",
+    flexDirection: "column",
+    margin: "60px auto",
+    padding: "20px",
+}
+
 class App extends PureComponent {
     state = {
         messages: [
@@ -52,11 +59,13 @@ class App extends PureComponent {
         return (
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-                <Menu />
-                <Container>
-                    <Messages messages={messages} />
-                    <FormMessage addMessage={this.addMessage} />
-                </Container>
+                <Box display="flex" height="100vh">
+                    <Menu />
+                    <Box style={style}>
+                        <Messages messages={messages} />
+                        <FormMessage addMessage={this.addMessage} />
+                    </Box>
+                </Box>
             </ThemeProvider>
         );
     }

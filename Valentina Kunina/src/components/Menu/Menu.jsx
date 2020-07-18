@@ -17,19 +17,8 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 // import Deposits from "./Deposits";
 // import Orders from "./Orders";
 import useStyles from "./useStyles";
-
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {"Copyright © "}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{" "}
-            {new Date().getFullYear()}
-            {"."}
-        </Typography>
-    );
-}
+import { mainListItems } from "./MainListItem";
+import { secondaryListItems } from "./SecondaryListItem";
 
 export default function Menu() {
     const classes = useStyles();
@@ -93,9 +82,9 @@ export default function Menu() {
                     </IconButton>
                 </div>
                 <Divider />
-                {/* <List>{mainListItems}</List> */}
+                <List>{mainListItems}</List>
                 <Divider />
-                {/* <List>{secondaryListItems}</List> */}
+                <List>{secondaryListItems}</List>
             </Drawer>
         </div>
     );

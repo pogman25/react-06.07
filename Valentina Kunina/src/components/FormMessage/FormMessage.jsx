@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField";
-import { Icon } from "@material-ui/core";
-import SendIcon from '@material-ui/icons/Send';
+import SendIcon from "@material-ui/icons/Send";
 import Button from "@material-ui/core/Button";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 
@@ -56,6 +55,7 @@ class FormMessage extends Component {
                     onChange={this.onChange}
                 />
                 <Button
+                    type="submit"
                     variant="contained"
                     color="primary"
                     className={classes.button}

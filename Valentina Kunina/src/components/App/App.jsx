@@ -5,6 +5,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Messages from "../Messages";
 import FormMessage from "../FormMessage";
 import Menu from "../Menu";
+import { Box, Container } from "@material-ui/core";
 
 const theme = createMuiTheme();
 
@@ -52,8 +53,10 @@ class App extends PureComponent {
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <Menu />
-                <Messages messages={messages} />
-                <FormMessage addMessage={this.addMessage} />
+                <Container>
+                    <Messages messages={messages} />
+                    <FormMessage addMessage={this.addMessage} />
+                </Container>
             </ThemeProvider>
         );
     }

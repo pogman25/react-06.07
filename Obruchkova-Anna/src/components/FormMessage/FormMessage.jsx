@@ -15,6 +15,7 @@ export class FormMessage extends Component {
         const { sendMessage } = this.props;
         e.preventDefault();
         sendMessage({ user, text });
+        this.setState({user: '', text: ''})
     };
     handleName = (e) => {
         this.setState({ user: e.target.value })
@@ -45,6 +46,7 @@ export class FormMessage extends Component {
                     onChange={this.handleText} /><br />
                 <Button variant="contained" color="default" href="#contained-buttons"
                     type='submit' onClick={this.handleSubmit}>Send</Button>
+                    <h1>Hello</h1>
             </form>
         )
     }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Message } from '../Message/Message';
 import { FormMessage } from '../FormMessage/FormMessage'
+// import '../styles.css';
 
 export class MessageField extends Component {
 
@@ -31,6 +32,7 @@ export class MessageField extends Component {
     render() {
         const { messages } = this.state;
         return <div>
+            <h1 className='Hello'>hello</h1>
             <Message messages={messages} />
             <FormMessage messages={messages} sendMessage={this.sendMessage} />
         </div>

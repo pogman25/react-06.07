@@ -1,3 +1,12 @@
+/* eslint-disable import/prefer-default-export */
+
 export const getChats = (store, chatId) => {
-  return store.chats.find(({ id }) => id === chatId);
+  const currentChat = store.chats.list.find(({ id }) => id === chatId);
+  if (currentChat) {
+    return currentChat;
+  }
+  return {
+    title: '',
+    messageList: [],
+  };
 };

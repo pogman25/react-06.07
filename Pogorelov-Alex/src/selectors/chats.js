@@ -1,7 +1,5 @@
-/* eslint-disable import/prefer-default-export */
-
 export const getChats = (store, chatId) => {
-  const currentChat = store.chats.list.find(({ id }) => id === chatId);
+  const currentChat = store.chats.byIds[chatId];
   if (currentChat) {
     return currentChat;
   }
@@ -9,4 +7,9 @@ export const getChats = (store, chatId) => {
     title: '',
     messageList: [],
   };
+};
+
+export const getAllChats = ({ chats }) => {
+  const { ids, byIds } = chats;
+  return ids.map(id => byIds[id]);
 };

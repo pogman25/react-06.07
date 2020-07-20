@@ -1,76 +1,80 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField";
-import { Icon } from "@material-ui/core";
-import SendIcon from '@material-ui/icons/Send';
+import SendIcon from "@material-ui/icons/Send";
 import Button from "@material-ui/core/Button";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { withStyles, createMuiTheme } from "@material-ui/core/styles";
 
-const styles = () => {
-    return makeStyles((theme) => ({
-        button: {
-            margin: theme.spacing(1),
-        },
-    }));
+const theme = createMuiTheme();
+
+const styles = {
+  button: {
+    margin: theme.spacing(1),
+  },
+  form: {
+    display: "flex",
+    justifyContent: "center",
+  }
 };
 
 class FormMessage extends Component {
-    state = {
-        author: "",
-        text: "",
-    };
+  state = {
+    author: "",
+    text: "",
+  };
 
-    onSubmit = (event) => {
-        const { addMessage } = this.props;
-        event.preventDefault();
-        addMessage(this.state);
-        this.setState({ text: "" });
-    };
+  onSubmit = event => {
+    const { addMessage } = this.props;
+    event.preventDefault();
+    addMessage(this.state);
+    this.setState({ text: "" });
+  };
 
-    onChange = ({ target }) => {
-        const { value, name } = target;
-        this.setState({ [name]: value });
-    };
+  onChange = ({ target }) => {
+    const { value, name } = target;
+    this.setState({ [name]: value });
+  };
 
-    render() {
-        const { author, text } = this.state;
-        const { classes } = this.props;
+  render() {
+    const { author, text } = this.state;
+    const { classes } = this.props;
 
-        return (
-            <form onSubmit={this.onSubmit}>
-                <TextField
-                    name="author"
-                    placeholder="Add your name"
-                    label="Author"
-                    variant="outlined"
-                    value={author}
-                    onChange={this.onChange}
-                />
-                <TextField
-                    name="text"
-                    label="Message"
-                    placeholder="Add your message"
-                    multiline
-                    variant="outlined"
-                    value={text}
-                    onChange={this.onChange}
-                />
-                <Button
-                    variant="contained"
-                    color="primary"
-                    className={classes.button}
-                    endIcon={<SendIcon />}
-                >
-                    Send
-                </Button>
-                {/* <button type="submit">Add Message</button> */}
-            </form>
-        );
-    }
+    return (
+      <form onSubmit={this.onSubmit} className={classes.form}>
+        <TextField
+          name="author"
+          placeholder="Add your name"
+          label="Author"
+          variant="outlined"
+          value={author}
+          onChange={this.onChange}
+        />
+        <TextField
+          name="text"
+          label="Message"
+          placeholder="Add your message"
+          multiline
+          variant="outlined"
+          value={text}
+          onChange={this.onChange}
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          endIcon={<SendIcon />}
+        >
+          Send
+        </Button>
+        {/* <button type="submit">Add Message</button> */}
+      </form>
+    );
+  }
 }
 
 FormMessage.propTypes = {
-    addMessage: PropTypes.func,
+  addMessage: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(FormMessage);

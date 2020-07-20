@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { Box } from '@material-ui/core';
 import { Messages, FormMessage } from '../../components';
+import { getChatsSuccess } from '../../actions/chats';
+import { getChats } from '../../selectors/chats';
 
 class Chats extends Component {
   state = {
@@ -27,6 +30,13 @@ class Chats extends Component {
   };
 
   timer = null;
+
+  componentDidMount() {
+    const { getChats } = this.props;
+    setTimeout(() => {
+      getChats();
+    });
+  }
 
   componentDidUpdate(_, prevState) {
     const {
@@ -76,6 +86,8 @@ class Chats extends Component {
   };
 
   render() {
+    const { chats } = this.props;
+
     return (
       <Box p={3} mt={2} flexGrow={1}>
         <Messages messages={this.messages} />
@@ -91,6 +103,24 @@ Chats.propTypes = {
       chatId: PropTypes.string,
     }),
   }).isRequired,
+  getChats: PropTypes.func.isRequired,
+  chats: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
-export default Chats;
+const mapStateToProps = (store, ownProps) => {
+  const {
+    match: {
+      params: { chatId },
+    },
+  } = ownProps;
+  return {
+    chats: store.chats,
+    currentChat: getChats(store, chatId),
+  };
+};
+
+const mapDispatchToProps = {
+  getChats: getChatsSuccess,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chats);

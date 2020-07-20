@@ -8,16 +8,14 @@ import Chats from '../Chats/Chats';
 
 const RootRouter = () => {
   return (
-    <Layout>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/about">
-          <About />
-        </Route>
-        <Route path="/chats/:chatId" component={Chats} />
-        <Route component={EmptyPage} />
-      </Switch>
-    </Layout>
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route path="/about">
+        <About />
+      </Route>
+      <Route path="/chats/:chatId" component={Chats} />
+      <Route component={EmptyPage} />
+    </Switch>
   );
 };
 

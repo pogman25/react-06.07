@@ -1,14 +1,15 @@
-import { GET_CHATS_SUCCESS } from '../actions/chats';
+import { handleActions } from 'redux-actions';
+import { getChatsSuccess } from '../actions/chats';
 
-const initialStore = [];
-
-const reducer = (store = initialStore, action) => {
-  switch (action.type) {
-    case GET_CHATS_SUCCESS:
-      return action.payload;
-    default:
-      return store;
-  }
+const initialStore = {
+  list: [],
 };
+
+const reducer = handleActions(
+  {
+    [getChatsSuccess]: (store, { payload }) => ({ ...store, list: payload }),
+  },
+  initialStore,
+);
 
 export default reducer;

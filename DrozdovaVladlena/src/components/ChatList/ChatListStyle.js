@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     gridArea: 'chatList',
     width: '100%',
@@ -10,4 +10,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default useStyles
+export default useStyles;

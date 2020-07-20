@@ -14,7 +14,7 @@ class Chats extends Component {
     const { getChats } = this.props;
     setTimeout(() => {
       getChats(mockChats);
-    });
+    }, 1000);
   }
 
   addMessage = ({ id, author, text }) => {

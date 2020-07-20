@@ -9,10 +9,12 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "app.js",
+    publicPath: '/',
   },
   resolve: {
     extensions: [".js", ".jsx"],
   },
+  devtool: "source-map",
   module: {
     rules: [
       {
@@ -36,6 +38,7 @@ module.exports = {
     contentBase: path.join(__dirname, "dist"),
     compress: true,
     port: 9000,
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({

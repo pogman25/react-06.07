@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import TextField from '@material-ui/core/TextField';
+
+
 
 class FormMessage extends Component {
   state = {
@@ -24,19 +27,19 @@ class FormMessage extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <input
-          type="text"
+        <TextField label='Outlined' variant='outlined' type="text"
           name="author"
           onChange={this.onChange}
-          value={author}
-        />
-        <textarea
-          name="text"
-          cols="30"
-          rows="5"
-          value={text}
-          onChange={this.onChange}
-        />
+          value={author}/>
+           <TextField
+           name="text"
+           label='Message'
+           multiline
+           rowsMax={4}
+           onChange={this.onChange}
+           value={text}
+         />
+        
         <button type="submit">add Message</button>
       </form>
     );

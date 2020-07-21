@@ -16,7 +16,8 @@ const styles = {
 
 class MessageField extends Component {
     state = {
-        messages: []
+        messages: [],
+        chatId: null
     };
     timer = null;
 
@@ -25,9 +26,10 @@ class MessageField extends Component {
         let newMessage = {author: autor, message: message, id: uuidv4()};    
         this.setState(({messages}) => ({ messages: [...messages, newMessage]})); 
     };
-
+    
     componentDidUpdate() {
         const { messages } = this.state;
+        const {chatId} = this.props;        
         if (messages.length > 0) {
             clearTimeout(this.timer);
             if (messages[messages.length - 1].author !== "bot") {
@@ -55,7 +57,7 @@ class MessageField extends Component {
                 <div>
                     <ul className={classes.messageArea}>
                         {messages.map((item) => (
-                                <Message key={item.id} author={item.author} message={item.message}/>
+                                <Message key={item.id} author={item.author} message={item.message} id={item.id}/>
                         ))}
                     </ul>
                     <p>
@@ -71,6 +73,7 @@ class MessageField extends Component {
 }
 
 MessageField.propTypes = {
+    chatId: PropTypes.number.isRequired,
     addMessage: PropTypes.func,
     clearMessages: PropTypes.func
 }

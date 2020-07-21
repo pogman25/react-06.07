@@ -37,6 +37,7 @@ Messages.propTypes = {
     PropTypes.shape({
       author: PropTypes.string,
       text: PropTypes.string,
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     }),
   ).isRequired,
 };

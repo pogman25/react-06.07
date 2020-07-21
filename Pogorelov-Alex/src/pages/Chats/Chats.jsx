@@ -1,22 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 import { Box } from '@material-ui/core';
 import { Messages, FormMessage } from '../../components';
-import { getChatsSuccess } from '../../actions/chats';
 import { getChats } from '../../selectors/chats';
-import mockChats from './mockChats';
 import Layout from '../../components/Layout/Layout';
 
 class Chats extends Component {
-  componentDidMount() {
-    const { getChats } = this.props;
-    setTimeout(() => {
-      getChats(mockChats);
-    }, 1000);
-  }
-
   addMessage = ({ id, author, text }) => {
     const {
       match: { params },
@@ -56,8 +46,4 @@ const mapStateToProps = (store, ownProps) => {
   };
 };
 
-const mapDispatchToProps = {
-  getChats: getChatsSuccess,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Chats);
+export default connect(mapStateToProps)(Chats);

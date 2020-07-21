@@ -16,11 +16,9 @@ export class FormMessage extends Component {
         e.preventDefault();
         sendMessage({ user, text });
     };
-    handleName = (e) => {
-        this.setState({ user: e.target.value })
-    }
-    handleText = (e) => {
-        this.setState({ text: e.target.value })
+    onChange = ({target}) => {
+        const {name, value} = target;
+        this.setState({ [name]: value })
     }
 
     render() {
@@ -33,7 +31,7 @@ export class FormMessage extends Component {
                     name="user"
                     placeholder="Type your name..."
                     value={user}
-                    onChange={this.handleName} /> <br />
+                    onChange={this.onChange} /> <br />
                 <TextField
                     multiline
                     rows={4}
@@ -42,7 +40,7 @@ export class FormMessage extends Component {
                     variant="outlined"
                     name="text"
                     value={text}
-                    onChange={this.handleText} /><br />
+                    onChange={this.onChange} /><br />
                 <Button variant="contained" color="default" href="#contained-buttons"
                     type='submit' onClick={this.handleSubmit}>Send</Button>
             </form>

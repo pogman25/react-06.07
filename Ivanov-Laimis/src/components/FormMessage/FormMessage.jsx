@@ -5,17 +5,12 @@ import { TextField, IconButton } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import { withStyles } from '@material-ui/core/styles';
 
-
-
 const styles = theme => ({
   form: {
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'center',
     marginTop: theme.spacing(4),
-    
-   
-
   },
 });
 
@@ -66,10 +61,8 @@ class FormMessage extends Component {
           required
         />
         <TextField
-          name="text"          
+          name="text"
           label="Message"
-          
-
           multiline
           rowsMax={4}
           value={text}
@@ -77,10 +70,8 @@ class FormMessage extends Component {
           onKeyDown={this.onKeyDown}
           required
         />
-        <IconButton type="submit" color="secondary">
-          
+        <IconButton type="submit" color="primary">
           <SendIcon />
-          
         </IconButton>
       </form>
     );
@@ -95,6 +86,3 @@ FormMessage.propTypes = {
 };
 
 export default withStyles(styles)(FormMessage);
-
-
-//label="Message"

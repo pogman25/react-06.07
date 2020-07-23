@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import Messages from "../Messages";
 import FormMessage from "../FormMessage";
 import Dashboard from "../Dashboard";
+import Header from "../Header";
 
 
 const answers = [
@@ -45,6 +46,7 @@ class App extends Component {
     return (
 
       <div>
+        <Header/>
         <Dashboard/>
         <div className="content">
           <Messages messages={messages}/>

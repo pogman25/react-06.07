@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import AppBar from "@material-ui/core/AppBar";
@@ -12,6 +13,7 @@ import useStyles from "../Layout/useStyles";
 
 const Header = ({ open, handleDrawerOpen }) => {
   const classes = useStyles();
+  const { chatId } = useParams();
 
   return (
     <AppBar
@@ -35,7 +37,7 @@ const Header = ({ open, handleDrawerOpen }) => {
           noWrap
           className={classes.title}
         >
-          Dashboard
+          {`Dashboard of Chat ${chatId}`}
         </Typography>
         <IconButton color="inherit">
           <Badge badgeContent={4} color="secondary">

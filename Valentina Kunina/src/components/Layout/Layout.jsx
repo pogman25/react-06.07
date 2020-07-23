@@ -1,22 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import {
   Box,
   List,
   ListItemIcon,
   ListItemText,
   ListItem,
-  MenuItem,
+  Divider,
 } from "@material-ui/core";
 import AssignmentIcon from "@material-ui/icons/Assignment";
-import SettingsIcon from "@material-ui/icons/Settings";
-import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import useStyles from "./useStyles";
 import Header from "../Header";
 import ChatList from "../ChatsList";
 import ChatListItem from "../ChatsList/ChatListItem";
-import pageLinks from "../ChatsList/pageLinks";
+import { chatsLinks, pageLinks } from "../ChatsList/pageLinks";
 
 export default function Layout({ children }) {
   const classes = useStyles();
@@ -29,13 +29,17 @@ export default function Layout({ children }) {
   };
   //   const fixedHeightPaper = (classes.paper, classes.fixedHeight);
 
+  const history = useHistory();
+  const logout = () => {
+    history.push("/chats/1");
+  };
+
   return (
     <Box className={classes.root}>
       <Header open={open} handleDrawerOpen={handleDrawerOpen} />
       <ChatList open={open} handleDrawerClose={handleDrawerClose}>
         <List>
-          <ChatListItem to="/" key="home" title="Home" icon={AssignmentIcon} />
-          {pageLinks.map(({ id, title, to }) => (
+          {chatsLinks.map(({ id, title, to }) => (
             <ChatListItem
               key={id}
               to={to}
@@ -44,10 +48,12 @@ export default function Layout({ children }) {
             />
           ))}
         </List>
+        <Divider />
         <List>
-          <ChatListItem title="Settings" icon={SettingsIcon} />
-          <ChatListItem title="Contact Us" icon={MailOutlineIcon} />
-          <ListItem title="Exit" button>
+          {pageLinks.map(({ id, title, to, icon }) => (
+            <ChatListItem to={to} key={id} title={title} icon={icon} />
+          ))}
+          <ListItem to="/exit" key="exit" title="Exit" onClick={logout} button>
             <ListItemIcon>
               <ExitToAppIcon />
             </ListItemIcon>

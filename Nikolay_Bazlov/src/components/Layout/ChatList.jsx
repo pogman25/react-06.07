@@ -3,8 +3,9 @@ import List from '@material-ui/core/List';
 import { Link } from "react-router-dom";
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { chatList } from "../Chat/pageList";
 import { makeStyles } from '@material-ui/core/styles';
+import { useSelector} from "react-redux";
+import {getAllChats} from "../../selectors/chats";
 
 const useStyles = makeStyles(() => ({
     link: {
@@ -15,10 +16,11 @@ const useStyles = makeStyles(() => ({
 
 const ChatList = (props) => {
     const classes = useStyles(props);
+    const allChats = useSelector(getAllChats);
 
     return (
         <List>
-            {chatList.map(({id, title, slug}) => {
+            {allChats.map(({id, title, slug}) => {
                 return (
                     <Link key={id} to={slug} className={classes.link}>
                         <ListItem button>

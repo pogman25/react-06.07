@@ -20,7 +20,6 @@ const styles = theme => ({
 
 class FormMessage extends Component {
   state = {
-    author: '',
     text: '',
   };
 
@@ -40,9 +39,9 @@ class FormMessage extends Component {
       addMessage,
       match: { params },
     } = this.props;
-    const { text, author } = this.state;
+    const { text } = this.state;
 
-    addMessage({ chatId: params.chatId, message: { author, text, id: uuidv4() } });
+    addMessage({ chatId: params.chatId, message: { text, id: uuidv4() } });
     this.setState({
       text: '',
     });
@@ -55,18 +54,11 @@ class FormMessage extends Component {
   };
 
   render() {
-    const { author, text } = this.state;
+    const { text } = this.state;
     const { classes } = this.props;
 
     return (
       <form className={classes.form} onSubmit={this.onSubmit}>
-        <TextField
-          label="Author"
-          name="author"
-          value={author}
-          onChange={this.onChange}
-          required
-        />
         <TextField
           name="text"
           label="Message"

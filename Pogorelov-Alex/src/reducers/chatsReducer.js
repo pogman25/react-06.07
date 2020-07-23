@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import { getChatsSuccess, addMessage } from '../actions/chats';
+import { getChatsSuccess, saveMessage } from '../actions/chats';
 
 const initialStore = {
   byIds: {},
@@ -16,7 +16,7 @@ const reducer = handleActions(
       }, {}),
       ids: payload.map(({ id }) => id),
     }),
-    [addMessage]: (store, { payload }) => ({
+    [saveMessage]: (store, { payload }) => ({
       ...store,
       byIds: {
         ...store.byIds,

@@ -1,6 +1,8 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { Messages, FormMessage } from "../../components";
+import { getChatsSuccess } from "../../actions/chats";
 
 class Chats extends PureComponent {
   state = {
@@ -95,4 +97,10 @@ Chats.propTypes = {
   }).isRequired,
 };
 
-export default Chats;
+const mapStateToProps = store => ({});
+
+const mapDispatchToProps = {
+  getChatsSuccess,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chats);

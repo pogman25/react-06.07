@@ -4,10 +4,10 @@ import { Container, Box } from '@material-ui/core';
 
 const Messages = ({ messages }) => {
   return (
-    <Container maxWidth="md" >
-      <Box display="flex" flexDirection="column" color="black" >
+    <Container maxWidth="md">
+      <Box display="flex" flexDirection="column">
         {messages.map(({ id, author, text }) => (
-          <Box style={ { backgroundColor: 'lightblue', borderRadius: 15, marginTop: 5, padding: 5 } }  key={id} alignSelf={author === 'bot' ? 'flex-end' : 'flex-start'}>
+          <Box key={id} alignSelf={author === 'bot' ? 'flex-end' : 'flex-start'}>
             <p>{`Author: ${author}`}</p>
             <p>{`message: ${text}`}</p>
           </Box>

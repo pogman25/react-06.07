@@ -1,4 +1,5 @@
 import React, {Component, Fragment} from 'react'
+import Profile from '../Profie/Profile'
 import {Link} from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -75,6 +76,7 @@ export default class Header extends Component{
                         <Button variant="outlined" color="inherit" onClick={this.props.switchDrawer}>
                                 Чаты
                         </Button>
+                        <Link to={'/profile'} render={<Profile><Button>Profile</Button></Profile>} ></Link>
                     </Toolbar>
                 </AppBar>
                 <Dialog open={this.state.open} onClose={this.handleClickClose} aria-labelledby="form-dialog-title">

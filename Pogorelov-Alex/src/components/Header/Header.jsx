@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import cx from 'classnames';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -48,6 +48,7 @@ const Header = () => {
   const { chatId } = useParams();
   const { title } = useSelector(store => getChats(store, chatId));
   const fullName = useSelector(getFullName);
+  console.log(fullName);
 
   return (
     <AppBar position="absolute" className={cx(classes.appBar, classes.appBarShift)}>
@@ -79,4 +80,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

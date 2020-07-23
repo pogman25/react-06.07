@@ -10,7 +10,7 @@ export const saveMessage = createAction('chats/ADD_MESSAGE');
 
 // smart actions
 
-export const addMessage = data => (dispatch, getState) => {
+export const addMessage = data => async (dispatch, getState) => {
   const fullName = getFullName(getState());
   if (data.message.author !== BOT_NAME) {
     setTimeout(() => {

@@ -2,6 +2,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers';
+import { saveState, loadState } from './localStorage';
 // import botAnswer from './botAnswer';
 
 const composeEnhancers =
@@ -16,6 +17,12 @@ const enhancer = composeEnhancers(
   // other store enhancers if any
 );
 
-const store = createStore(rootReducer, enhancer);
+const persistedState = loadState();
+
+const store = createStore(rootReducer, persistedState, enhancer);
+
+store.subscribe(() => {
+  saveState(store.getState());
+});
 
 export default store;

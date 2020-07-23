@@ -1,13 +1,13 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import Header from '../Header/Header'
 import { uuid } from 'uuidv4'
 import Chat from '../Chat/Chat'
 import '../../css/style.css'
 import ChatLists from '../ChatLists/ChatLists'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-
-
-//{this.state.chats[0].id} 
+import { Provider } from 'react-redux'
+import store from '../../store/store'
+import Profie from '../Profie/Profile'
 
 export default class App extends Component{
     state = {
@@ -16,14 +16,14 @@ export default class App extends Component{
         currentChatName: '',
         currentActiveChat: null,
         drawerIsOpen: false,
-        chats: [
-            {id: uuid(), avatar: 'https://v0.material-ui.com/images/ok-128.jpg', userName: 'Сушист', messages:[]},
-            {id: uuid(), avatar: 'https://v0.material-ui.com/images/kolage-128.jpg', userName: 'Визажист', messages:[
-                {name: 'я', text: 'фывфыв', id: uuid()}
+        chats: {
+            1: {id: 1, avatar: 'https://v0.material-ui.com/images/ok-128.jpg', userName: 'Сушист', messages:[]},
+            2: {id: 2, avatar: 'https://v0.material-ui.com/images/kolage-128.jpg', userName: 'Визажист', messages:[
+                {name: 'я', text: 'фывфыв', id_message: uuid()}
             ]},
-            {id: uuid(), avatar: 'https://v0.material-ui.com/images/raquelromanp-128.jpg', userName: 'Бухгалтер', messages:[]},
-            {id: uuid(), avatar: 'https://v0.material-ui.com/images/kerem-128.jpg', userName: 'Качок', messages:[]},
-        ]
+            3: {id: 3, avatar: 'https://v0.material-ui.com/images/raquelromanp-128.jpg', userName: 'Бухгалтер', messages:[]},
+            4: {id: 4, avatar: 'https://v0.material-ui.com/images/kerem-128.jpg', userName: 'Качок', messages:[]},
+        }
     }
 
     handleCurrentChatName = (id, newChatName) => {
@@ -34,45 +34,77 @@ export default class App extends Component{
     }
 
     handleAddMessage = (id, message) => {
-        const newChats = this.state.chats
-        const chat = newChats.find(item => item.id === id)
-        chat.messages.push(message)
-        this.setState({newChats})
+        console.log(id, 'id?')
+        console.log(message, 'message?')
+        this.setState(state => ({
+            ...state,
+            chats: {
+                ...state.chats, 
+                [id]: {
+                    ...state.chats[id],
+                    messages: [...this.state.chats[id].messages, message]
+                    }
+                }
+        }))
     }
 
     handleAddChat = (chatName) => {
-        const newChats = this.state.chats
-        const avatarId = newChats.length
-        const chat = {id: uuid(), userName: chatName, messages:[], avatar: `https://randomuser.me/api/portraits/med/men/${avatarId}.jpg`}
-        newChats.push(chat)
-        this.setState({newChats})
+        let counter = 1
+        for (let id in this.state.chats) {
+            counter++
+        }
+        this.setState( state => ({
+            ...state,
+            chats: {...state.chats,
+            [counter]: {
+                id: counter,
+                userName: chatName,
+                messages: [],
+                avatar: `https://randomuser.me/api/portraits/med/men/${counter}.jpg`
+            }}
+        }))
     }
 
     render() {
         return (
-            <Fragment>
+            <Provider store={store}>
                 <BrowserRouter>
-                    <Header title={this.state.title} currentChatName={this.state.currentChatName} addChat={this.handleAddChat} switchDrawer={this.handleDrawerOpen} />   
+                    <Header 
+                        title={this.state.title} 
+                        currentChatName={this.state.currentChatName} 
+                        addChat={this.handleAddChat} 
+                        switchDrawer={this.handleDrawerOpen} />   
+
                     <main className="main">
                         <Switch>
                             <Route path='/'>
                                 <Switch>
-                                    <Route 
-                                        path='/' 
-                                        exact 
-                                        render={(props) => <Chat {...props} chats={this.state.chats} addMessage={this.handleAddMessage} currentActiveChat={this.state.currentActiveChat} />}/> 
-                                    <Route 
-                                        path='/:id' 
-                                        exact 
-                                        render={(props) => <Chat {...props} chats={this.state.chats} addMessage={this.handleAddMessage} currentActiveChat={this.state.currentActiveChat} />}/>
+                                    <Route path='/' exact render={(props) => 
+                                        <Chat 
+                                            {...props}
+                                            chats={this.state.chats} 
+                                            addMessage={this.handleAddMessage} 
+                                            currentActiveChat={this.state.currentActiveChat} />}
+                                    /> 
+                                    <Route path='/:id' exact render={(props) => 
+                                        <Chat 
+                                            {...props} 
+                                            chats={this.state.chats}
+                                            addMessage={this.handleAddMessage} 
+                                            currentActiveChat={this.state.currentActiveChat} />}
+                                    />
+                                    <Route path='/:id'></Route>
                                 </Switch>
-                                <ChatLists chats={this.state.chats} newChatName={this.handleCurrentChatName} switchDrawer={this.handleDrawerOpen} drawerIsOpen={this.state.drawerIsOpen}/>
+                                <ChatLists 
+                                    chats={this.state.chats} 
+                                    newChatName={this.handleCurrentChatName} 
+                                    switchDrawer={this.handleDrawerOpen} 
+                                    drawerIsOpen={this.state.drawerIsOpen}/>
                             </Route>
                         </Switch>
-
                     </main>
-                </BrowserRouter>
-            </Fragment>
+            </BrowserRouter>
+            </Provider>
         )
     }
 }

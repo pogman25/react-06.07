@@ -13,31 +13,39 @@ const styles = theme => ({
       backgroundColor: theme.palette.background.paper,
     },
 })
+
 class ChatListItem extends Component { 
     
     render(){
         const { classes } = this.props
         return(
-            <Link to={'/'+this.props.id} className='link' onClick={() => {this.props.newChatName(this.props.id, this.props.userName)}} >
+            <Link 
+                to={`/${this.props.id}`} 
+                className='link' 
+                onClick={() => {this.props.newChatName(this.props.id, this.props.userName)}} >
+                
                 <Tooltip title={this.props.userName} arrow>
-                <ListItem className={classes.root} onClick={() => {this.props.newChatName(this.props.id, this.props.userName)}}>
-                    <ListItemAvatar>
-                        <Avatar src={this.props.avatar}/>
-                    </ListItemAvatar>
-                    <ListItemText primary={this.props.userName}/>
-                    <ListItemIcon>
-                        <IconButton edge="end" aria-label="comments">
-                          <ChatBubbleRounded />
-                        </IconButton>
-                    </ListItemIcon>
-                </ListItem>
-            </Tooltip>
+                    <ListItem 
+                        className={classes.root} 
+                        onClick={() => {this.props.newChatName(this.props.id, this.props.userName)}}>
+                        <ListItemAvatar>
+                            <Avatar src={this.props.avatar}/>
+                        </ListItemAvatar>
+                        <ListItemText primary={this.props.userName}/>
+                        <ListItemIcon>
+                            <IconButton edge="end" aria-label="comments">
+                            <ChatBubbleRounded />
+                            </IconButton>
+                        </ListItemIcon>
+                    </ListItem>
+                </Tooltip>
             </Link>
         )
     }
 }
+
 ChatListItem.propTypes = {
     classes: PropTypes.object.isRequired,
-  };
+  }
   
-  export default withStyles(styles)(ChatListItem);
+export default withStyles(styles)(ChatListItem);

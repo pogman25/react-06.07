@@ -6,8 +6,6 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 const theme = createMuiTheme({
     overrides: {
-        // Style sheet name ⚛️
-       
         MuiPaper:{
             root:{
                 width:'400px'

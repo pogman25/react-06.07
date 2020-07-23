@@ -1,25 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { v4 as uuidv4 } from 'uuid';
+import './Message.css';
+import classnames from 'classnames';
 
 
 export class Message extends Component {
 
     render() {
         return (
-            <ul>
-                {this.props.messages.map(({ id, user, text }) =>
-                    <li key={id}>
-                        <strong><span>{user} : </span></strong><span>{text}</span>
-                    </li>)} 
-            </ul>
+            <ul className='messagesAll'>
+                {this.props.messages.map(({ user, text }, index) =>
+                    <li key={index} className={classnames (
+                        'messagesItem',
+                         user === 'Robot' && 'messagesItemRobot')}>
+                        <strong><span className='userNameInMessage'>{user} : </span></strong><span className={classnames (
+                        'contextInMesssage',
+                        user === 'Robot' && 'contextInMesssageRobot' )}>{text}</span>
+                    </li>)} </ul>
         )
     }
 }
 Message.propTypes = {
     messages: PropTypes.arrayOf(
         PropTypes.shape({
-            id: PropTypes.string,
             user: PropTypes.string,
             text: PropTypes.string,
         })

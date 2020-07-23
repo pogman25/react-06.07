@@ -7,6 +7,9 @@ import { withStyles } from "@material-ui/core/styles";
 
 
 const styles = {
+    mainContainer: {
+        flexGrow: 1,
+    },
     messageArea: {
         display: "flex",
         flexDirection: "column",
@@ -16,8 +19,7 @@ const styles = {
 
 class MessageField extends Component {
     state = {
-        messages: [],
-        chatId: null
+        messages: []
     };
     timer = null;
 
@@ -29,22 +31,31 @@ class MessageField extends Component {
     
     componentDidUpdate() {
         const { messages } = this.state;
-        const {chatId} = this.props;        
+                
         if (messages.length > 0) {
             clearTimeout(this.timer);
             if (messages[messages.length - 1].author !== "bot") {
               this.timer = setTimeout(() => {
-                this.setState(({ messages }) => ({
-                  messages: [
-                    ...messages,
-                    { author: "bot", message: "Hi there!!!", id: uuidv4() },
-                  ],
-                }));
-              }, 1000);
-            }        
+                    this.addMessage("bot", "Hi there!!!");                  
+                }, 1000);
+            }
         }
     }
     
+    componentDidMount () {
+        const {messages} = this.props;        
+        this.setState({messages: messages});
+        const {chatId} = this.props;
+    }
+    
+    componentWillUnmount() {
+        const {chatId} = this.props;
+        const {messages} = this.state;
+        const {messagesUpdater} = this.props; 
+
+        messagesUpdater(chatId, messages);
+    }
+
     clearMessages = () => {
         const {messages} = this.state;
         this.setState(({messages}) => ({ messages: []}));        
@@ -54,7 +65,7 @@ class MessageField extends Component {
         const {messages} = this.state; 
         const {classes} = this.props;
         return (
-                <div>
+                <div className={classes.mainContainer}>
                     <ul className={classes.messageArea}>
                         {messages.map((item) => (
                                 <Message key={item.id} author={item.author} message={item.message} id={item.id}/>
@@ -74,8 +85,7 @@ class MessageField extends Component {
 
 MessageField.propTypes = {
     chatId: PropTypes.number.isRequired,
-    addMessage: PropTypes.func,
-    clearMessages: PropTypes.func
+    messagesUpdater: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(MessageField);

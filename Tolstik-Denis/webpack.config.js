@@ -1,13 +1,15 @@
 const path=require("path")
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: {
 	  main: "./src/index.jsx"
   },
   output: {
-	path: path.resolve(__dirname, "dist"),
-    filename: "[name].[hash:6].js"
+	  path: path.resolve(__dirname, "dist"),
+    filename: "[name].[hash:6].js",
+    publicPath: "/"
   },
   resolve: {extensions: ['.js', '.jsx']},
   module: {
@@ -22,6 +24,20 @@ module.exports = {
             plugins: ["@babel/plugin-proposal-class-properties"]
           }
         }
+      },
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              modules: {
+                localIdentName: '[path][name]__[local]--[hash:base64:5]',
+              },
+            },
+          },
+        ]
       }
     ]
   },
@@ -30,5 +46,10 @@ module.exports = {
 		  filename: "index.html",
 		  template: "src/index.html"
 	  }),
-  ]
+  ],
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    port: 8080,
+    historyApiFallback: true,
+  }
 }

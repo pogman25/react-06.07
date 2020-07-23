@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import logger from 'redux-logger';
 import rootReducer from '../reducers';
+import botAnswer from './botAnswer';
 
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -10,7 +11,7 @@ const composeEnhancers =
     : compose;
 
 const enhancer = composeEnhancers(
-  applyMiddleware(logger),
+  applyMiddleware(botAnswer, logger),
   // other store enhancers if any
 );
 

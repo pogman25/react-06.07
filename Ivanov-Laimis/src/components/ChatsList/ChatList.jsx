@@ -16,8 +16,6 @@ import PeopleIcon from '@material-ui/icons/People';
 import MenuIcon from '@material-ui/icons/Menu';
 import { DRAWER_WIDTH } from '../../utils/constants';
 import { pageList, chatList } from './pageList';
-import { useSelector } from 'react-redux';
-import { getAllChats } from '../../selectors/chats';
 
 const useStyles = makeStyles(theme => ({
   drawerPaper: {
@@ -43,8 +41,7 @@ const useStyles = makeStyles(theme => ({
 
 const ChatList = () => {
   const classes = useStyles();
-  const allChats = useSelector(getAllChats);
-  console.log(allChats);
+
   return (
     <Drawer
       variant="permanent"
@@ -61,7 +58,7 @@ const ChatList = () => {
       <Divider />
       <Typography variant="h5">Chats</Typography>
       <List>
-        {allChats.map(({ id, title, slug }) => (
+        {chatList.map(({ id, title, slug }) => (
           <Link key={id} to={slug}>
             <ListItem button>
               <ListItemIcon>

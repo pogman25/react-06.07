@@ -1,21 +1,25 @@
 import React from 'react';
 import cx from 'classnames';
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { makeStyles } from '@material-ui/core';
+//import { makeStyles } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+//import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { DRAWER_WIDTH } from '../../utils/constants';
-import { getChats } from '../../selectors/chats';
-import { userProfile } from '../../selectors/profile';
-
-console.log(userProfile+'jnh');
-
+import { Switch, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { LinkHeader } from '../../components/ChatsList/pageList';
+import {
+  makeStyles,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+} from '@material-ui/core';
 
 const useStyles = makeStyles(theme => {
   return {
@@ -43,18 +47,17 @@ const useStyles = makeStyles(theme => {
     title: {
       flexGrow: 1,
     },
+
+    topitop: {
+      marginTop: 'auto',
+      color: 'green',
+    },
+
   };
 });
 
 const Header = () => {
   const classes = useStyles();
-  const { chatId } = useParams();
-  const { title } = useSelector(store => getChats(store, chatId));
- 
- // const { miu } = useSelector(store => userProfile(store, chatId));
- // console.log(miu + 'miu');
-//  console.log(userProfile + 'top');
-
 
   return (
     <AppBar position="absolute" className={cx(classes.appBar, classes.appBarShift)}>
@@ -64,9 +67,12 @@ const Header = () => {
           color="inherit"
           aria-label="open drawer"
           className={classes.menuButton}
+         
         >
+     
           <MenuIcon />
         </IconButton>
+
         <Typography
           component="h1"
           variant="h6"
@@ -74,13 +80,15 @@ const Header = () => {
           noWrap
           className={classes.title}
         >
-          {`Dashboard of Chat ${title}`}
-          
-          
+          {`Dashboard of Chat `}         
           
         </Typography>
-
-        {`User Profile ${userProfile}`}
+        <List>        
+        <Link   key={LinkHeader[0].id} to={LinkHeader[0].slug}>                      
+            <ListItemText style={ { color: 'lightblue', textDecoration: 'none'} }
+            primary={LinkHeader[0].title} />          
+        </Link>     
+    </List>
 
         <IconButton color="inherit">
           <Badge badgeContent={4} color="secondary">
@@ -93,4 +101,3 @@ const Header = () => {
 };
 
 export default Header;
-

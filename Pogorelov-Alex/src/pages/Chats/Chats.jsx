@@ -7,11 +7,7 @@ import { getChats } from '../../selectors/chats';
 import Layout from '../../components/Layout/Layout';
 
 class Chats extends Component {
-  addMessage = ({ id, author, text }) => {
-    const {
-      match: { params },
-    } = this.props;
-  };
+  componentDidMount() {}
 
   render() {
     const { currentChat } = this.props;
@@ -19,7 +15,7 @@ class Chats extends Component {
       <Layout>
         <Box p={3} mt={2} flexGrow={1}>
           <Messages messages={currentChat.messageList} />
-          <FormMessage addMessage={this.addMessage} />
+          <FormMessage />
         </Box>
       </Layout>
     );
@@ -32,7 +28,6 @@ Chats.propTypes = {
       chatId: PropTypes.string,
     }),
   }).isRequired,
-  getChats: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (store, ownProps) => {

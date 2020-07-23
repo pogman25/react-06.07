@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
+import React, { memo, Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
 import { v4 as uuidv4 } from 'uuid';
 import { TextField, IconButton } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import { withStyles } from '@material-ui/core/styles';
+import { addMessage } from '../../actions/chats';
 
 const styles = theme => ({
   form: {
@@ -32,10 +36,13 @@ class FormMessage extends Component {
   };
 
   sendMessage = () => {
-    const { addMessage } = this.props;
+    const {
+      addMessage,
+      match: { params },
+    } = this.props;
     const { text, author } = this.state;
 
-    addMessage({ author, text, id: uuidv4() });
+    addMessage({ chatId: params.chatId, message: { author, text, id: uuidv4() } });
     this.setState({
       text: '',
     });
@@ -83,6 +90,20 @@ FormMessage.propTypes = {
     form: PropTypes.string,
   }).isRequired,
   addMessage: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      chatId: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
-export default withStyles(styles)(FormMessage);
+const mapDispatchToProps = {
+  addMessage,
+};
+
+export default compose(
+  connect(null, mapDispatchToProps),
+  withStyles(styles),
+  withRouter,
+  memo,
+)(FormMessage);

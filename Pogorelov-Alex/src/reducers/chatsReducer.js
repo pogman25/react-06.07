@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import { getChatsSuccess } from '../actions/chats';
+import { getChatsSuccess, addMessage } from '../actions/chats';
 
 const initialStore = {
   byIds: {},
@@ -15,7 +15,16 @@ const reducer = handleActions(
         return sum;
       }, {}),
       ids: payload.map(({ id }) => id),
-      list: payload,
+    }),
+    [addMessage]: (store, { payload }) => ({
+      ...store,
+      byIds: {
+        ...store.byIds,
+        [payload.chatId]: {
+          ...store.byIds[payload.chatId],
+          messageList: [...store.byIds[payload.chatId].messageList, payload.message],
+        },
+      },
     }),
   },
   initialStore,

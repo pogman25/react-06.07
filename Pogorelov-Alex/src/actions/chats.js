@@ -1,5 +1,9 @@
 import { createActions } from 'redux-actions';
 
-export const { getChatsSuccess } = createActions('GET_CHATS_SUCCESS', {
-  prefix: 'chats',
-});
+export const { getChatsSuccess, addMessage } = createActions(
+  'GET_CHATS_SUCCESS',
+  'ADD_MESSAGE',
+  {
+    prefix: 'chats',
+  },
+);

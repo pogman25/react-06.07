@@ -6,7 +6,7 @@ import Home from '../Home/Home';
 import About from '../About/About';
 import EmptyPage from '../EmptyPage';
 import Chats from '../Chats/Chats';
-import mockChats from '../Chats/mockChats';
+import mockChats from '../../mock/mockChats';
 
 const RootRouter = () => {
   const dispatch = useDispatch();

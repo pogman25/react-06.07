@@ -1,3 +1,5 @@
-import { createAction } from 'redux-actions';
+import { createActions } from 'redux-actions';
 
-export const getChatsSuccess = createAction('chats/GET_CHATS_SUCCESS');
+export const { getChatsSuccess } = createActions('GET_CHATS_SUCCESS', {
+  prefix: 'chats',
+});

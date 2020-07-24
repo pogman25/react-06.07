@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import shortid from "shortid";
 import TextField from "@material-ui/core/TextField";
 import SendIcon from "@material-ui/icons/Send";
 import Button from "@material-ui/core/Button";
@@ -14,7 +15,7 @@ const styles = {
   form: {
     display: "flex",
     justifyContent: "center",
-  }
+  },
 };
 
 class FormMessage extends Component {
@@ -26,7 +27,7 @@ class FormMessage extends Component {
   onSubmit = event => {
     const { addMessage } = this.props;
     event.preventDefault();
-    addMessage(this.state);
+    addMessage({ ...this.state, id: shortid.generate() });
     this.setState({ text: "" });
   };
 
@@ -75,6 +76,7 @@ class FormMessage extends Component {
 
 FormMessage.propTypes = {
   addMessage: PropTypes.func.isRequired,
+  classes: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
 
 export default withStyles(styles)(FormMessage);

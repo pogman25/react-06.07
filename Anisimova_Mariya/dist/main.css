@@ -1,0 +1,25 @@
+.HxTvcvY8isKRh9yDBu886 {
+  display: grid;
+  grid-template-areas: 'header header' 'chatList messageField';
+  grid-template-columns: 20% 80%;
+  grid-template-rows: 70px 10fr;
+}
+
+._2qlyWw3V5Aa2JjdTvE_AtD {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 25px;
+  background-color: cadetblue;
+  border-radius: 25px;
+  margin: 10px;
+}
+._3ZLxMZLEk2M9Iyctr0QdYc {
+  align-self: flex-end;
+}
+.EQtj_fY7Ey-hpJG4ADIH9 {
+  align-self: flex-start;
+}
+.EQtj_fY7Ey-hpJG4ADIH9 span {
+  overflow-wrap: break-word;
+}
+

@@ -5,28 +5,28 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import useStyles from './ChatListStyle';
+import {pageChats} from './pageList'
+import { NavLink } from 'react-router-dom';
 
-  
 const ChatList = () => {
-  const classes = useStyles()
-  
-    return (
-      <List dense className={classes.root}>
-        {[0, 1, 2, 3].map((value) => {
-        const labelId = `checkbox-list-secondary-label-${value}`;
+  const classes = useStyles();
+
+  return (
+    <List dense className={classes.root}>
+      {pageChats.map(value => {
         return (
-          <ListItem key={value} button>
-            <ListItemAvatar>
-              <Avatar
-                alt={`Avatar n°${value + 1}`}
-              />
-            </ListItemAvatar>
-            <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
-          </ListItem>
+          <NavLink to={value.slug} key={value.id}>
+            <ListItem button>
+              <ListItemAvatar>
+                <Avatar alt={`Avatar n°${value.id}`} />
+              </ListItemAvatar>
+              <ListItemText primary={value.title} />
+            </ListItem>
+          </NavLink>
         );
       })}
     </List>
-    )
-  }
+  );
+};
 
-export default ChatList 
+export default ChatList;

@@ -7,8 +7,9 @@ module.exports = {
 	  main: "./src/index.jsx"
   },
   output: {
-	path: path.resolve(__dirname, "dist"),
-    filename: "[name].[hash:6].js"
+	  path: path.resolve(__dirname, "dist"),
+    filename: "[name].[hash:6].js",
+    publicPath: "/"
   },
   resolve: {extensions: ['.js', '.jsx']},
   module: {
@@ -45,5 +46,10 @@ module.exports = {
 		  filename: "index.html",
 		  template: "src/index.html"
 	  }),
-  ]
+  ],
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    port: 8080,
+    historyApiFallback: true,
+  }
 }

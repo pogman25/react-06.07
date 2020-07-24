@@ -7,7 +7,7 @@ const useStyles = makeStyles(() => ({
   },
   title: {
     flexGrow: 1,
-    textDecoration: 'none'
+    textDecoration: 'none',
   },
 }));
 

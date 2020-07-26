@@ -6,14 +6,14 @@ import Home from '../Home/Home';
 import About from '../About/About';
 import EmptyPage from '../EmptyPage';
 import Chats from '../Chats/Chats';
-import mockChats from '../Chats/mockChats';
+import mockChats from '../../mock/mockChats';
 
 const RootRouter = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getChatsSuccess(mockChats));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getChatsSuccess(mockChats));
+  // }, [dispatch]);
 
   return (
     <Switch>

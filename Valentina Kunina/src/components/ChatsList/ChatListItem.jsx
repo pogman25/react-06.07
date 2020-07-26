@@ -1,17 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Link,
   makeStyles,
 } from "@material-ui/core";
-// import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   link: {
     color: "rgba(0, 0, 0, 0.87)",
+    textDecoration: "none",
   },
 }));
 
@@ -32,7 +32,7 @@ const ChatListItem = ({ title, icon: Icon, ...linkProps }) => {
 
 ChatListItem.propTypes = {
   title: PropTypes.string.isRequired,
-  icon: PropTypes.object,
+  icon: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
 
 export default ChatListItem;

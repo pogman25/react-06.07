@@ -14,7 +14,7 @@ const reducer = handleActions(
         payload.forEach(chat => {
           draft.byIds[chat.id] = chat;
         });
-        draft.ids = Object.values(draft.byIds);
+        draft.ids = Object.keys(draft.byIds);
       }),
     [saveMessage]: (store, { payload }) =>
       produce(store, draft => {

@@ -9,11 +9,11 @@ import Chats from '../Chats/Chats';
 import mockChats from '../../mock/mockChats';
 
 const RootRouter = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getChatsSuccess(mockChats));
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getChatsSuccess(mockChats));
+  }, [dispatch]);
 
   return (
     <Switch>

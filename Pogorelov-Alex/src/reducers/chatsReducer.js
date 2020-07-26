@@ -1,4 +1,5 @@
 import { handleActions } from 'redux-actions';
+import produce from 'immer';
 import { getChatsSuccess, saveMessage } from '../actions/chats';
 
 const initialStore = {
@@ -8,24 +9,17 @@ const initialStore = {
 
 const reducer = handleActions(
   {
-    [getChatsSuccess]: (store, { payload }) => ({
-      ...store,
-      byIds: payload.reduce((sum, item) => {
-        sum[item.id] = item;
-        return sum;
-      }, {}),
-      ids: payload.map(({ id }) => id),
-    }),
-    [saveMessage]: (store, { payload }) => ({
-      ...store,
-      byIds: {
-        ...store.byIds,
-        [payload.chatId]: {
-          ...store.byIds[payload.chatId],
-          messageList: [...store.byIds[payload.chatId].messageList, payload.message],
-        },
-      },
-    }),
+    [getChatsSuccess]: (store, { payload }) =>
+      produce(store, draft => {
+        payload.forEach(chat => {
+          draft.byIds[chat.id] = chat;
+        });
+        draft.ids = Object.values(draft.byIds);
+      }),
+    [saveMessage]: (store, { payload }) =>
+      produce(store, draft => {
+        draft.byIds[payload.chatId].messageList.push(payload.message);
+      }),
   },
   initialStore,
 );

@@ -1,14 +1,15 @@
 import React from 'react';
-import {Header, ChatList } from '../index'
+import { Header, ChatList } from '../index';
 import style from './Layout.module.css';
 
-const Layout = ({children}) => {
+const Layout = ({ children }) => {
   return (
     <div className={style.spa}>
       <Header />
-      <ChatList /> 
+      <ChatList />
       <main>{children}</main>
-    </div>)
-}
+    </div>
+  );
+};
 
 export default Layout;

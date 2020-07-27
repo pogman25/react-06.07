@@ -7,4 +7,4 @@ import { App} from './components';
 
   const element =  document.getElementById('root');
   
-  ReactDOM.render(<App name="Daniil" />, element);
+  ReactDOM.render(<App />, element);

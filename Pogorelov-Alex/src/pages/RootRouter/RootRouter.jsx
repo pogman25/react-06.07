@@ -6,14 +6,27 @@ import Home from '../Home/Home';
 import About from '../About/About';
 import EmptyPage from '../EmptyPage';
 import Chats from '../Chats/Chats';
-import { mockChats, mockMessages } from '../../mock/mockChats';
 
 const RootRouter = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getChatsSuccess(mockChats));
-    dispatch(getMessagesSuccess(mockMessages));
+    fetch('https://swapi.dev/api/people/1')
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        dispatch({ type: 'EXAMPLE', payload: res });
+      })
+      .catch(e => {})
+      .finally(() => {});
+
+    fetch('/api/chats.json')
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        dispatch(getChatsSuccess(res.chats));
+        dispatch(getMessagesSuccess(res.messages));
+      });
   }, [dispatch]);
 
   return (

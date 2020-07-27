@@ -1,10 +1,11 @@
 import React from 'react';
+import Layout from '../../components/Layout/Layout';
 
 const EmptyPage = () => {
   return (
-    <div>
+    <Layout>
       <h1>Page 404 Not Found</h1>
-    </div>
+    </Layout>
   );
 };
 

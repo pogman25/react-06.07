@@ -6,6 +6,7 @@ export const getChats = (store, chatId) => {
   return {
     title: '',
     messageList: [],
+    colorChat: 'red',
   };
 };
 

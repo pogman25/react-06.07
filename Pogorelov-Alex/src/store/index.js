@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import rootReducer from '../reducers';
+import updatedMessages from './updatedMessage';
 // import botAnswer from './botAnswer';
 
 const persistConfig = {
@@ -21,7 +22,7 @@ const composeEnhancers =
     : compose;
 
 const enhancer = composeEnhancers(
-  applyMiddleware(thunk, logger),
+  applyMiddleware(updatedMessages, thunk, logger),
   // other store enhancers if any
 );
 

@@ -22,7 +22,7 @@ const reducer = handleActions(
         ...store.byIds,
         [payload.chatId]: {
           ...store.byIds[payload.chatId],
-          messageList: [...store.byIds[payload.chatId].messageList, payload.message],
+          messageList: [...store.byIds[payload.chatId].messageList, payload.message.id],
         },
       },
     }),

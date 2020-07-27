@@ -8,6 +8,11 @@ import { getFullName } from '../selectors/profile';
 export const getChatsSuccess = createAction('chats/GET_CHATS_SUCCESS');
 export const saveMessage = createAction('chats/ADD_MESSAGE');
 
+export const getMessagesSuccess = createAction('messages/GET_MESSAGES_SUCCESS');
+
+export const addUpdatedMessage = createAction('chats/ADD_UPDATED_MESSAGE');
+export const deleteUpdatedMessage = createAction('chats/DELETE_UPDATED_MESSAGE');
+
 // smart actions
 
 export const addMessage = data => (dispatch, getState) => {
@@ -22,6 +27,7 @@ export const addMessage = data => (dispatch, getState) => {
       );
     }, 500);
   }
+
   dispatch(
     saveMessage({
       chatId: data.chatId,

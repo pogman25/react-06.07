@@ -1,19 +1,20 @@
 import React, { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getChatsSuccess } from '../../actions/chats';
+import { getChatsSuccess, getMessagesSuccess } from '../../actions/chats';
 import Home from '../Home/Home';
 import About from '../About/About';
 import EmptyPage from '../EmptyPage';
 import Chats from '../Chats/Chats';
-import mockChats from '../../mock/mockChats';
+import { mockChats, mockMessages } from '../../mock/mockChats';
 
 const RootRouter = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getChatsSuccess(mockChats));
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getChatsSuccess(mockChats));
+    dispatch(getMessagesSuccess(mockMessages));
+  }, [dispatch]);
 
   return (
     <Switch>

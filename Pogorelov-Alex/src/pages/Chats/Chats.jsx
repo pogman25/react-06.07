@@ -10,11 +10,11 @@ class Chats extends Component {
   componentDidMount() {}
 
   render() {
-    const { currentChat } = this.props;
+    const { currentChat, updated } = this.props;
     return (
       <Layout>
         <Box p={3} mt={2} flexGrow={1}>
-          <Messages messages={currentChat.messageList} />
+          <Messages messages={currentChat.messageList} updated={updated} />
           <FormMessage />
         </Box>
       </Layout>
@@ -38,6 +38,7 @@ const mapStateToProps = (store, ownProps) => {
   } = ownProps;
   return {
     currentChat: getChats(store, chatId),
+    updated: store.messages.updated,
   };
 };
 

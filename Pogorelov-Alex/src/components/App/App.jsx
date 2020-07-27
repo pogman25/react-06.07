@@ -14,14 +14,12 @@ const theme = createMuiTheme();
 const App = () => {
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <RootRouter />
-          </ThemeProvider>
-        </BrowserRouter>
-      </PersistGate>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <RootRouter />
+        </ThemeProvider>
+      </BrowserRouter>
     </Provider>
   );
 };

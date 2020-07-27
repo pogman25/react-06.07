@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import TextField from '@material-ui/core/TextField';
+import { v4 as uuidv4 } from 'uuid';
+import { TextField, IconButton } from '@material-ui/core';
+import SendIcon from '@material-ui/icons/Send';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = {
+const styles = theme => ({
   form: {
     display: 'flex',
-    flexDirection: 'column',
     alignItems: 'flex-start',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
+    justifyContent: 'center',
+    marginTop: theme.spacing(4),
   },
-};
+});
 
 class FormMessage extends Component {
   state = {
@@ -22,14 +22,28 @@ class FormMessage extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const { addMessage } = this.props;
-    addMessage(this.state);
-    this.setState({ text: '' });
+    this.sendMessage();
   };
 
   onChange = ({ target }) => {
     const { value, name } = target;
     this.setState({ [name]: value });
+  };
+
+  sendMessage = () => {
+    const { addMessage } = this.props;
+    const { text, author } = this.state;
+
+    addMessage({ author, text, id: uuidv4() });
+    this.setState({
+      text: '',
+    });
+  };
+
+  onKeyDown = e => {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+      this.sendMessage();
+    }
   };
 
   render() {
@@ -40,10 +54,10 @@ class FormMessage extends Component {
       <form className={classes.form} onSubmit={this.onSubmit}>
         <TextField
           label="Author"
-          variant="outlined"
           name="author"
           value={author}
           onChange={this.onChange}
+          required
         />
         <TextField
           name="text"
@@ -52,14 +66,21 @@ class FormMessage extends Component {
           rowsMax={4}
           value={text}
           onChange={this.onChange}
+          onKeyDown={this.onKeyDown}
+          required
         />
-        <button type="submit">add Message</button>
+        <IconButton type="submit" color="primary">
+          <SendIcon />
+        </IconButton>
       </form>
     );
   }
 }
 
 FormMessage.propTypes = {
+  classes: PropTypes.shape({
+    form: PropTypes.string,
+  }).isRequired,
   addMessage: PropTypes.func.isRequired,
 };
 

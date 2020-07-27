@@ -48,7 +48,7 @@ class FormMessage extends Component {
                 label="Message"
                 name="message"
                 multiline
-                rowMax={4}
+                rowsMax={4}
                 placeholder="Enter message..."
                 onChange={this.onChange}
                 value={message}/>

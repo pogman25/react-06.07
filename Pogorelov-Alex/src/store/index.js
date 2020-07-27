@@ -1,18 +1,9 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 import rootReducer from '../reducers';
 import updatedMessages from './updatedMessage';
 // import botAnswer from './botAnswer';
-
-const persistConfig = {
-  key: 'root',
-  storage,
-};
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -27,7 +18,6 @@ const enhancer = composeEnhancers(
 );
 
 export default () => {
-  const store = createStore(persistedReducer, enhancer);
-  const persistor = persistStore(store);
-  return { store, persistor };
+  const store = createStore(rootReducer, enhancer);
+  return { store };
 };

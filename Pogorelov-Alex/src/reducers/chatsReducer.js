@@ -1,13 +1,15 @@
 import { handleActions } from 'redux-actions';
-import { getChatsSuccess, saveMessage } from '../actions/chats';
+import { getChatsSuccess, saveMessage, chatsRequest, getChatsEnd } from '../actions/chats';
 
 const initialStore = {
   byIds: {},
   ids: [],
+  isFetching: false,
 };
 
 const reducer = handleActions(
   {
+    [chatsRequest]: store => ({ ...store, isFetching: true }),
     [getChatsSuccess]: (store, { payload }) => ({
       ...store,
       byIds: payload.reduce((sum, item) => {
@@ -26,6 +28,7 @@ const reducer = handleActions(
         },
       },
     }),
+    [getChatsEnd]: store => ({ ...store, isFetching: false }),
   },
   initialStore,
 );

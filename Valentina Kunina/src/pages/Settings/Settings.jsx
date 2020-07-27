@@ -1,10 +1,11 @@
 import React from "react";
+import Layout from "../../components/Layout";
 
 const Settings = () => {
   return (
-    <div>
+    <Layout>
       <h1>Settings Page</h1>
-    </div>
+    </Layout>
   );
 };
 

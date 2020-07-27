@@ -4,6 +4,8 @@ import Message from "./Message";
 import PropTypes from "prop-types";
 import FormMessage from "./FormMessage"
 import { withStyles } from "@material-ui/core/styles";
+import { connect } from 'react-redux';
+import { addChatMessage } from '../actions/chats';
 
 
 const styles = {
@@ -18,21 +20,19 @@ const styles = {
 };
 
 class MessageField extends Component {
-    state = {
-        messages: []
-    };
     timer = null;
 
     addMessage=(autor, message) => {
-        const {messages} = this.state;
-        let newMessage = {author: autor, message: message, id: uuidv4()};    
-        this.setState(({messages}) => ({ messages: [...messages, newMessage]})); 
+        const { addChatMessage } = this.props;
+        const { chatId } = this.props;
+
+        addChatMessage({chatId: chatId, message: {author: autor, message: message, id: uuidv4()}});
     };
     
     componentDidUpdate() {
-        const { messages } = this.state;
+        const { messages } = this.props;
                 
-        if (messages.length > 0) {
+        if (messages && messages.length > 0) {
             clearTimeout(this.timer);
             if (messages[messages.length - 1].author !== "bot") {
               this.timer = setTimeout(() => {
@@ -42,6 +42,7 @@ class MessageField extends Component {
         }
     }
     
+    /*
     componentDidMount () {
         const {messages} = this.props;        
         this.setState({messages: messages});
@@ -55,24 +56,25 @@ class MessageField extends Component {
 
         messagesUpdater(chatId, messages);
     }
+    */
 
     clearMessages = () => {
-        const {messages} = this.state;
+        const { messages } = this.props;
         this.setState(({messages}) => ({ messages: []}));        
     }
 
     render() {
-        const {messages} = this.state; 
-        const {classes} = this.props;
+        const { messages } = this.props; 
+        const { classes } = this.props;
         return (
                 <div className={classes.mainContainer}>
                     <ul className={classes.messageArea}>
-                        {messages.map((item) => (
+                        {messages?.map((item) => (
                                 <Message key={item.id} author={item.author} message={item.message} id={item.id}/>
                         ))}
                     </ul>
                     <p>
-                        Total messages: {messages.length}
+                        Total messages: {messages ? messages.length : 0}
                     </p>
                     <FormMessage addMessage={this.addMessage}/>
                     <br/>
@@ -85,8 +87,19 @@ class MessageField extends Component {
 
 MessageField.propTypes = {
     chatId: PropTypes.number.isRequired,
-    messagesUpdater: PropTypes.func.isRequired
+    addChatMessage: PropTypes.func.isRequired
 }
 
-export default withStyles(styles)(MessageField);
+
+const mapStateToProps = (store, ownProps) => {
+    const { chatId } = ownProps;
+    let messages = store.chats[chatId]?.messages;
+    return {
+        messages: messages ? messages : []
+    }
+};
+
+const mapDispatchToProps = { addChatMessage: addChatMessage};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MessageField));
 

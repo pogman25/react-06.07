@@ -15,5 +15,9 @@ export const getAllChats = ({ chats }) => {
 
 
 export const getMessages = (store, chatId) => {
-  return store.messages.byIds[chatId]
+  return store.chats.byIds[chatId].messageList
+}
+
+export const getNotification = (store) => {
+  return store.chats.notification
 }

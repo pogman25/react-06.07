@@ -60,7 +60,7 @@ const Header = () => {
           noWrap
           className={classes.title}
         >
-          Dashboard
+          {`Dashboard of Chat `}
         </Typography>
         <IconButton color="inherit">
           <Badge badgeContent={4} color="secondary">

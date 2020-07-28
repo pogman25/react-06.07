@@ -1,0 +1,44 @@
+.src-index-module__messages__list--ONRjM {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    max-width: 600px;
+    border: 1px solid #eee;   
+}
+
+.src-index-module__messages__item_bot--2cZ0- {
+    align-self: flex-end;
+}
+
+.src-index-module__messages__item_author--1_5oS {
+    align-self: flex-start;
+}
+h1 {
+    color: red;
+}
+
+ul {
+    list-style: none;
+}
+
+.src-index__formContainer--1fcyt {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.src-index__messages__list--3LE7D {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    max-width: 600px;
+    border: 1px solid #eee;   
+}
+
+.src-index__messages__item_bot--3WfD3 {
+    align-self: flex-end;
+}
+
+.src-index__messages__item_author--fHqle {
+    align-self: flex-start;
+}

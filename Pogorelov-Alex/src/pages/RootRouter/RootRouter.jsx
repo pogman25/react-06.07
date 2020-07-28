@@ -1,19 +1,27 @@
 import React, { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getChatsSuccess } from '../../actions/chats';
+import { sendChatsRequest } from '../../actions/chats';
 import Home from '../Home/Home';
 import About from '../About/About';
 import EmptyPage from '../EmptyPage';
 import Chats from '../Chats/Chats';
-import mockChats from '../../mock/mockChats';
 
 const RootRouter = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getChatsSuccess(mockChats));
-  // }, [dispatch]);
+  useEffect(() => {
+    // fetch('https://swapi.dev/api/people/1')
+    //   .then(res => res.json())
+    //   .then(res => {
+    //     console.log(res);
+    //     dispatch({ type: 'EXAMPLE', payload: res });
+    //   })
+    //   .catch(e => {})
+    //   .finally(() => {});
+
+    dispatch(sendChatsRequest());
+  }, [dispatch]);
 
   return (
     <Switch>

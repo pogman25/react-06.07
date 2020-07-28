@@ -1,14 +1,10 @@
-import { handleActions } from 'redux-actions';
-import { userData } from '../actions/profile';
+import { handleAction } from 'redux-actions';
 
-const initialStore = {
-    num: 'инфа',
+const initReducer = {
+  name: 'Alex',
+  lastName: 'Pog',
 };
 
+const reducer = handleAction('', state => state, initReducer);
 
- const profileReducer = initialStore;
-
-
-export default profileReducer;
-
-
+export default reducer;

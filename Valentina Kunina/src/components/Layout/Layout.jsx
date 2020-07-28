@@ -17,6 +17,8 @@ import Header from "../Header";
 import ChatList from "../ChatsList";
 import ChatListItem from "../ChatsList/ChatListItem";
 import { chatsLinks, pageLinks } from "../ChatsList/pageLinks";
+import { useSelector } from "react-redux";
+import { getAllChats } from "../../selectors/chats";
 
 export default function Layout({ children }) {
   const classes = useStyles();
@@ -33,13 +35,14 @@ export default function Layout({ children }) {
   const logout = () => {
     history.push("/chats/1");
   };
+  const allChats = useSelector(getAllChats);
 
   return (
     <Box className={classes.root}>
       <Header open={open} handleDrawerOpen={handleDrawerOpen} />
       <ChatList open={open} handleDrawerClose={handleDrawerClose}>
         <List>
-          {chatsLinks.map(({ id, title, to }) => (
+          {allChats.map(({ id, title, to }) => (
             <ChatListItem
               key={id}
               to={to}

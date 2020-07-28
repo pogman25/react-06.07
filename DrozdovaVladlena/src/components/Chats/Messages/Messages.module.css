@@ -1,10 +1,5 @@
 .message {
   display: flex;
-  flex-direction: column;
-  padding: 5px 25px;
-  background-color: cadetblue;
-  border-radius: 25px;
-  margin: 10px;
 }
 .messageBot {
   align-self: flex-end;
@@ -14,4 +9,12 @@
 }
 .messageAuthor span {
   overflow-wrap: break-word;
+}
+.message .boxMessage {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 25px;
+  background-color: cadetblue;
+  border-radius: 25px;
+  margin: 10px;
 }

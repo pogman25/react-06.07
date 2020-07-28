@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import useStyles from './MessageFieldStyle';
 
-const MessageField = props => {
+const MessageField = ({addMessage}) => {
   const [author, setAuthor] = useState('');
   const [text, setText] = useState('');
 
@@ -20,8 +20,8 @@ const MessageField = props => {
     setAuthor(event.target.value);
   };
 
-  const addMessage = () => {
-    props.addMessage({ id: uuid(), text: text, author });
+  const addMessageClick = () => {
+    addMessage({author, text: text, id: uuid()});
     setText('');
     setAuthor('');
   };
@@ -55,9 +55,8 @@ const MessageField = props => {
         variant="contained"
         color="primary"
         className={classes.button}
-        onClick={addMessage}
+        onClick={addMessageClick}
         endIcon={<Icon>send</Icon>}
-        disabled={props.botTell}
       >
         Send
       </Button>

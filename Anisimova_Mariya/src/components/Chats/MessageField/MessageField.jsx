@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types'
-import uuid from 'react-uuid'
+import PropTypes from 'prop-types';
+import uuid from 'react-uuid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import useStyles from './MessageFieldStyle';
 
-const MessageField = (props) => {
+const MessageField = props => {
   const [author, setAuthor] = useState('');
   const [text, setText] = useState('');
 
@@ -21,7 +21,7 @@ const MessageField = (props) => {
   };
 
   const addMessage = () => {
-    props.addMessage({ id: uuid(), message: text, author})
+    props.addMessage({ id: uuid(), text: text, author });
     setText('');
     setAuthor('');
   };
@@ -33,29 +33,36 @@ const MessageField = (props) => {
   };
 
   return (
-      <form className={classes.form} noValidate autoComplete="off">
-          <TextField id="outlined-basic" label="Author" value={author} onChange={authorChange} variant="outlined" />
-          <TextField
-              id="outlined-multiline-static"
-              label="Text"
-              value={text} onChange={textChange}
-              onKeyDown={addMessageEnter}// много проверки
-              variant="outlined"
-              multiline
-              rows={4}
-        />
-          <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          onClick={addMessage}
-          endIcon={<Icon>send</Icon>}
-          disabled={props.botTell}
-        >
-          Send
-              </Button>
-      </form>
-  )
+    <form className={classes.form} noValidate autoComplete="off">
+      <TextField
+        id="outlined-basic"
+        label="Author"
+        value={author}
+        onChange={authorChange}
+        variant="outlined"
+      />
+      <TextField
+        id="outlined-multiline-static"
+        label="Text"
+        value={text}
+        onChange={textChange}
+        onKeyDown={addMessageEnter} // много проверки
+        variant="outlined"
+        multiline
+        rows={4}
+      />
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.button}
+        onClick={addMessage}
+        endIcon={<Icon>send</Icon>}
+        disabled={props.botTell}
+      >
+        Send
+      </Button>
+    </form>
+  );
 };
 
 // MessageField.propTypes = {

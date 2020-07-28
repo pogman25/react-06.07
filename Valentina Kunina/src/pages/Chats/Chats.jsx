@@ -3,35 +3,19 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Messages, FormMessage } from "../../components";
 import { getChatsSuccess } from "../../actions/chats";
+import { getChats } from "../../selectors/chats";
+import mockChats from "./mockChats";
+import Layout from "../../components/Layout";
 
 class Chats extends PureComponent {
-  state = {
-    chats: {
-      1: {
-        id: 1,
-        messageList: [1, 2],
-        title: "Чат 1",
-      },
-      2: {
-        id: 2,
-        messageList: [3, 4],
-        title: "Чат 2",
-      },
-      3: {
-        id: 3,
-        messageList: [1, 4],
-        title: "Чат 2",
-      },
-    },
-    messages: {
-      1: { author: "user", text: "привет 1", id: 1 },
-      2: { author: "user", text: "как дела? 2", id: 2 },
-      3: { author: "user", text: "как дела? 3", id: 3 },
-      4: { author: "user", text: "как дела? 4", id: 4 },
-    },
-  };
+  // timer = null;
 
-  timer = null;
+  componentDidMount() {
+    const { getChats } = this.props;
+    setTimeout(() => {
+      getChats(mockChats);
+    }, 1000);
+  }
 
   //   componentDidUpdate(prevProps, PrevState) {
   // const { messages } = this.state;
@@ -52,39 +36,42 @@ class Chats extends PureComponent {
   // }
   //   }
 
-  get messages() {
-    const {
-      match: { params },
-    } = this.props;
-    const { chats, messages } = this.state;
+  // get messages() {
+  //   // const {
+  //   //   match: { params },
+  //   // } = this.props;
+  //   const { chats } = this.props;
+  //   return chats.messageList;
 
-    return chats[params.chatId]?.messageList.map(
-      messageId => messages[messageId],
-    );
-  }
+  //   // return chats[params.chatId]?.messageList.map(
+  //   //   messageId => messages[messageId],
+  //   // );
+  // }
 
   addMessage = ({ author, text, id }) => {
     const {
       match: { params },
     } = this.props;
-    this.setState(({ chats, messages }) => ({
-      chats: {
-        ...chats,
-        [params.chatId]: {
-          ...chats[params.chatId],
-          messageList: [...chats[params.chatId].messageList, id],
-        },
-      },
-      messages: { ...messages, [id]: { id, author, text } },
-    }));
+    // this.setState(({ chats, messages }) => ({
+    //   chats: {
+    //     ...chats,
+    //     [params.chatId]: {
+    //       ...chats[params.chatId],
+    //       messageList: [...chats[params.chatId].messageList, id],
+    //     },
+    //   },
+    //   messages: { ...messages, [id]: { id, author, text } },
+    // }));
   };
 
   render() {
+    const { currentChat } = this.props;
+
     return (
-      <>
-        <Messages messages={this.messages} />
+      <Layout>
+        <Messages messages={currentChat.messageList} />
         <FormMessage addMessage={this.addMessage} />
-      </>
+      </Layout>
     );
   }
 }
@@ -95,12 +82,22 @@ Chats.propTypes = {
       chatId: PropTypes.string,
     }),
   }).isRequired,
+  getChats: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = store => ({});
+const mapStateToProps = (store, ownProps) => {
+  const {
+    match: {
+      params: { chatId },
+    },
+  } = ownProps;
+  return {
+    currentChat: getChats(store, chatId),
+  };
+};
 
 const mapDispatchToProps = {
-  getChatsSuccess,
+  getChats: getChatsSuccess,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chats);

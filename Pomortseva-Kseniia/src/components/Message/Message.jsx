@@ -1,4 +1,4 @@
-import React /* , { useState } */ from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Box } from '@material-ui/core';
 
@@ -20,11 +20,11 @@ const Message = ({ messages }) => {
 Message.propTypes = {
   messages: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       author: PropTypes.string,
       text: PropTypes.string,
     }),
   ).isRequired,
 };
 
-export default Message;
+export default memo(Message);

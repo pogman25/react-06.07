@@ -1,5 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -8,7 +10,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { DRAWER_WIDTH } from '../../utilis/constants';
+import { DRAWER_WIDTH } from '../../utils/constants';
+import { getChats } from '../../selectors/chats';
 
 const useStyles = makeStyles(theme => {
   return {
@@ -41,6 +44,8 @@ const useStyles = makeStyles(theme => {
 
 const Header = () => {
   const classes = useStyles();
+  const { chatId } = useParams();
+  const { title } = useSelector(store => getChats(store, chatId));
 
   return (
     <AppBar position="absolute" className={cx(classes.appBar, classes.appBarShift)}>
@@ -60,7 +65,7 @@ const Header = () => {
           noWrap
           className={classes.title}
         >
-          {`Dashboard of Chat `}
+          {`Dashboard of Chat ${title}`}
         </Typography>
         <IconButton color="inherit">
           <Badge badgeContent={4} color="secondary">

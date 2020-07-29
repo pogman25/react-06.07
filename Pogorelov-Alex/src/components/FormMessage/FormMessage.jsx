@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { TextField, IconButton } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import { withStyles } from '@material-ui/core/styles';
-import { addMessage } from '../../actions/chats';
+import { addMessage } from '../../reducers/chatsReducer';
 
 const styles = theme => ({
   form: {

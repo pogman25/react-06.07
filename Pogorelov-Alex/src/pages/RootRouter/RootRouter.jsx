@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { sendChatsRequest } from '../../actions/chats';
 import Home from '../Home/Home';
 import About from '../About/About';
 import EmptyPage from '../EmptyPage';
 import Chats from '../Chats/Chats';
+import { sendChatsRequest } from '../../reducers/chatsReducer';
 
 const RootRouter = () => {
   const dispatch = useDispatch();

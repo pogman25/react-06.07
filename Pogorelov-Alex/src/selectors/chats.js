@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from '@reduxjs/toolkit';
 
 export const getMessagesByIds = store => {
   return store.messages.byIds;
@@ -10,7 +10,7 @@ export const getChats = (store, chatId) => {
   if (currentChat) {
     return {
       ...currentChat,
-      messageList: currentChat.messageList.map(id => messagesByIds[id]),
+      messageList: currentChat.messageList.map(id => messagesByIds?.[id] ?? {}),
     };
   }
   return {

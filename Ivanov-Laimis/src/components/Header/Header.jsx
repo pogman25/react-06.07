@@ -48,7 +48,6 @@ const Header = () => {
   const { chatId } = useParams();
   const { title } = useSelector(store => getChats(store, chatId));
   const fullName = useSelector(getFullName);
-  console.log(fullName);
 
   return (
     <AppBar position="absolute" className={cx(classes.appBar, classes.appBarShift)}>

@@ -5,14 +5,12 @@ import style from './Messages.module.css';
 import { BOT_NAME } from '../../../utils/constants';
 import ClearIcon from '@material-ui/icons/Clear';
 import { useDispatch } from 'react-redux';
-import { dellMessage } from '../../../store/actions/chatsAction';
-import { useParams } from 'react-router-dom';
+import { dellMessage } from '../../../store/reducers/messagesReducer';
 
 const Messages = ({ messages }) => {
-  const {chatId} = useParams()
   const dispatch = useDispatch()
   const dellMessageClick = (id) => {
-    return () => dispatch(dellMessage(chatId, id))
+    return () => dispatch(dellMessage(id))
   }
 
   return (

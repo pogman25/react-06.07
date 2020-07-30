@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
+import { normalize, schema } from 'normalizr';
 import { getFullName } from '../selectors/profile';
 import { BOT_NAME } from '../utils/constants';
 import { getMessagesSuccess, saveMessage } from './messagesReducer';
@@ -43,6 +44,17 @@ export const sendChatsRequest = () => async dispatch => {
   try {
     const res = await fetch('/api/chats.json');
     const data = await res.json();
+
+    // Example with normalizr
+    const chatsRes = await fetch('/api/chatsArray.json');
+    const chats = await chatsRes.json();
+    const msgSchema = new schema.Entity('messageList');
+    const chatsSchema = new schema.Entity('chats', { messageList: [msgSchema] });
+    const result = normalize(chats, {
+      chats: [chatsSchema],
+    });
+    console.log(result);
+
     dispatch(getMessagesSuccess(data.messages));
     dispatch(getChatsSuccess(data.chats));
   } catch (e) {

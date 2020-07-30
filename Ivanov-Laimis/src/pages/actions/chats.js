@@ -1,12 +1,7 @@
 import { createAction } from 'redux-actions';
 import { v4 as uuidv4 } from 'uuid';
-import { normalize } from 'normalizr';
-import { chats } from '../utils/schemas';
 import { BOT_NAME } from '../utils/constants';
 import { getFullName } from '../selectors/profile';
-
-
-
 
 // simple actions
 
@@ -49,37 +44,15 @@ export const sendChatsRequest = () => async dispatch => {
 
   // async/await
   try {
-
- const res = await fetch("/api/normalizer.json");
- const normalizedData = normalize(res, [chats]);
- const data = await normalizedData.json();
- console.log(data+"tav");
-// const data = await res.json();
-// const result = normalize(res, chats);
-// console.log(result+"av");
-
-/*
     const res = await fetch('/api/chats.json');
-    
-   const data = await res.json();
-   */
-
-  dispatch(getMessagesSuccess(data.messages));
-  dispatch(getChatsSuccess(data.chats));
-
-
-
-
+    const data = await res.json();
+    dispatch(getMessagesSuccess(data.messages));
+    dispatch(getChatsSuccess(data.chats));
   } catch (e) {
     dispatch(getChatsFailure());
   } finally {
     dispatch(getChatsEnd());
   }
-
-
-
-
-
 
   // Promiss
   // fetch('/api/chats.json')

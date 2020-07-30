@@ -9,24 +9,10 @@ const botAnswer = ({ dispatch }) => next => action => {
         dispatch(
           addMessage({
             chatId: action.payload.chatId,
-            message: { author: BOT_NAME, text: 'привет, я Бот', id: uuidv4() },    
-                    
+            message: { author: BOT_NAME, text: 'привет, я Бот', id: uuidv4() },
           }),
-          
         );
-        
       }, 500);
-
-      
-
-
-      // повторить с интервалом 2 секунды
-      const timerId = setInterval(() => alert('tick'), 2000);
-
-      // остановить вывод через 5 секунд
-      setTimeout(() => { clearInterval(timerId); alert('stop'); }, 5000);
-
-
     }
   }
   return next(action);

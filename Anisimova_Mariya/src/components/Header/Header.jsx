@@ -10,7 +10,6 @@ import { getPageChat } from '../../store/selector/selector';
 const Header = () => {
   const classes = useStyles();
   const {chatId} = useParams();
-
   const {title} = useSelector(store => getPageChat(store, chatId))
 
   return (

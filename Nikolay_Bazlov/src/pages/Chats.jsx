@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, useEffect} from "react";
 import PropTypes from "prop-types";
 import { createMuiTheme, withStyles} from '@material-ui/core/styles';
 import Messages from "../components/Chat/Messages";
@@ -7,7 +7,7 @@ import Divider from "@material-ui/core/Divider";
 import { connect } from "react-redux";
 import { getChatsSuccess } from "../actions/chats";
 import { getChats } from "../selectors/chats";
-import mockChats from "../components/Chat/mockChats";
+import mockChats from "../Mock/mockChats";
 import Layout from "../components/Layout/Layout";
 
 const theme = createMuiTheme(); // Здесь кастомизация темы
@@ -25,14 +25,8 @@ class Chats extends Component {
         const { getChats } = this.props;
         setTimeout(() => {
             getChats(mockChats);
-        }, 1000)
+        }, 1000);
     }
-
-    addMessage = ({ id, author, text }) => {
-        const {
-            match: { params },
-        } = this.props;
-    };
 
     render() {
         const { classes, currentChat } = this.props;
@@ -41,7 +35,7 @@ class Chats extends Component {
             <Layout>
                 <Messages messages={currentChat.messageList} />
                 <Divider className={classes.divider}/>
-                <FormMessage addMessage={this.addMessage} />
+                <FormMessage/>
             </Layout>
         );
     }

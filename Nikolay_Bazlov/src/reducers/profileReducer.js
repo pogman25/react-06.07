@@ -1,15 +1,11 @@
-import { handleActions } from "redux-actions";
-import { getProfileSuccess } from "../actions/profile";
+import { handleAction } from "redux-actions";
 
-const initialStore = {
-    list: [],
+const initReducer = {
+    name: "Kolya",
+    lastName: "Bazlov",
 };
 
-const reducer = handleActions(
-    {
-        [getProfileSuccess]: (store, {payload}) => ({...store, list: payload}),
-    },
-    initialStore,
-);
+const reducer = handleAction("", state => state, initReducer);
 
 export default reducer;
+

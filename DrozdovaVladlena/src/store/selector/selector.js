@@ -1,21 +1,23 @@
 export const getPageChat = (store, chatId) => {
-  const currentChat = store.chats.byIds[chatId];
-  if (currentChat) {
-    return currentChat;
+  const [...chats] = store.chats.chats
+  const currentChat = chats.filter(item => {if (chatId === item.id) return item.id});
+  if (currentChat.length) {
+    return currentChat[0];
   }
   return {
     title: '',
   };
 };
 
-export const getAllChats = ({ chats }) => {
-  const { ids, byIds } = chats;
-  return ids.map(id => byIds[id]);
+export const getAllChats = (store) => {
+  const { chats } = store.chats;
+  return chats;
 };
 
 
 export const getMessages = (store, chatId) => {
-  return store.chats.byIds[chatId].messageList
+  const [...messages] = store.messages.messages
+  return messages.filter(item => item.idUser === chatId)
 }
 
 export const getNotification = (store) => {

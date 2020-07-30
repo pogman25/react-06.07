@@ -20,9 +20,9 @@ export const dellMessage = (chatId, id) => ({
   id
 });
 
-export const addChats = chat => ({
+export const addChats = (chatId, chat) => ({
   type: chatsConst.ADD_CHAT_SUCCESS,
-  chat
+  chat, chatId
 });
 
 export const notification = chatId => ({

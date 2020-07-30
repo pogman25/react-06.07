@@ -6,7 +6,7 @@ import { withStyles } from "@material-ui/core/styles";
 import ChatList from './ChatList';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { addChatMessage, getChatsSuccess } from '../actions/chats';
+import { getChatsSuccess } from '../actions/chats';
 
 const styles = {
     mainContainer: {
@@ -27,18 +27,6 @@ class Layout extends Component {
             3 : { chatId: 3, slug: "/chat/3", title: 'Chat 3', messages: []}     
         });
     }
-
-    messagesUpdater = (chatId, messages) => {        
-        const {addChatMessage} = this.props;
-        
-        //addChatMessage({chatId, messages});
-        
-        /*this.setState(({chats}) => {
-            chats[chatId].messages = messages;
-            return {chats: chats};
-        });
-        */
-    }
     
     render() {
         const {classes, chatId} = this.props;
@@ -48,7 +36,7 @@ class Layout extends Component {
             <div className={classes.mainContainer}>
                 <Header chatId={chatId}/>
                 <ChatList chatId={chatId} chats={chats}/>
-                <MessageField key={chatId} chatId= {chatId} messages={chats[chatId]?.messages} messagesUpdater={this.messagesUpdater}/>
+                <MessageField key={chatId} chatId= {chatId} messages={chats[chatId]?.messages} />
             </div>
         );
     }
@@ -57,7 +45,6 @@ class Layout extends Component {
 Layout.propTypes = {
     chatId: PropTypes.number.isRequired,
     getChats: PropTypes.func.isRequired,
-    addChatMessage: PropTypes.func.isRequired
 }
 
 Layout.defaultProps = {
@@ -68,6 +55,6 @@ const mapStateToProps = (store) => ({
     chats: store.chats
 });
 
-const mapDispatchToProps = { getChats: getChatsSuccess, addChatMessage: addChatMessage};
+const mapDispatchToProps = { getChats: getChatsSuccess };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Layout));

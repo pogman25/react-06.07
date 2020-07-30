@@ -5,18 +5,23 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles"
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './store';
+import { PersistGate } from 'redux-persist/integration/react'
+import storeConfig from './store';
 
 const theme = createMuiTheme();
 const rootElement = document.getElementById("root");
- 
+
+const {store, persistor} = storeConfig();
+
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <Router />
-            </ThemeProvider>
-        </BrowserRouter>
+        <PersistGate loading={null} persistor={persistor}>
+            <BrowserRouter>
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <Router />
+                </ThemeProvider>
+            </BrowserRouter>
+        </PersistGate>
     </Provider>,
     rootElement);

@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 import FormMessage from "./FormMessage"
 import { withStyles } from "@material-ui/core/styles";
 import { connect } from 'react-redux';
-import { addChatMessage } from '../actions/chats';
-
+import { postChatMessage } from '../actions/chats';
+import { getChatMessages } from '../selectors';
 
 const styles = {
     mainContainer: {
@@ -20,15 +20,16 @@ const styles = {
 };
 
 class MessageField extends Component {
-    timer = null;
+    //timer = null;
 
     addMessage=(autor, message) => {
-        const { addChatMessage } = this.props;
+        const { postChatMessage } = this.props;
         const { chatId } = this.props;
 
-        addChatMessage({chatId: chatId, message: {author: autor, message: message, id: uuidv4()}});
+        postChatMessage({chatId: chatId, message: {author: autor, message: message, id: uuidv4()}});
     };
     
+    /*
     componentDidUpdate() {
         const { messages } = this.props;
                 
@@ -41,23 +42,8 @@ class MessageField extends Component {
             }
         }
     }
-    
-    /*
-    componentDidMount () {
-        const {messages} = this.props;        
-        this.setState({messages: messages});
-        const {chatId} = this.props;
-    }
-    
-    componentWillUnmount() {
-        const {chatId} = this.props;
-        const {messages} = this.state;
-        const {messagesUpdater} = this.props; 
-
-        messagesUpdater(chatId, messages);
-    }
     */
-
+    
     clearMessages = () => {
         const { messages } = this.props;
         this.setState(({messages}) => ({ messages: []}));        
@@ -87,19 +73,23 @@ class MessageField extends Component {
 
 MessageField.propTypes = {
     chatId: PropTypes.number.isRequired,
-    addChatMessage: PropTypes.func.isRequired
+    postChatMessage: PropTypes.func.isRequired
 }
 
 
 const mapStateToProps = (store, ownProps) => {
     const { chatId } = ownProps;
+    return getChatMessages(store, chatId);
+        
+    /*
     let messages = store.chats[chatId]?.messages;
     return {
         messages: messages ? messages : []
     }
+    */
 };
 
-const mapDispatchToProps = { addChatMessage: addChatMessage};
+const mapDispatchToProps = { postChatMessage };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MessageField));
 

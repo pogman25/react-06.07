@@ -4,10 +4,6 @@ import { withStyles } from "@material-ui/core/styles";
 import {Link} from 'react-router-dom';
 import {List, ListItem} from '@material-ui/core';
 
-const styles = {
-    
-};
-
 class ChatList extends Component {
     render() {
         const {chats} = this.props;
@@ -25,6 +21,16 @@ class ChatList extends Component {
 
 ChatList.propTypes = {
     chatId: PropTypes.number.isRequired,
+    chats: PropTypes.objectOf(PropTypes.shape({
+        chatId: PropTypes.number, 
+        slug: PropTypes.string,
+        title: PropTypes.string, 
+        messages: PropTypes.arrayOf(PropTypes.shape({
+            author: PropTypes.string,
+            message: PropTypes.string,
+            id: PropTypes.string
+        }))
+    })).isRequired,
 }
 
 ChatList.defaultProps = {

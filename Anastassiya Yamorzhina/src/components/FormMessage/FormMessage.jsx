@@ -1,86 +1,112 @@
-import React, {Component} from "react";
-import PropTypes from "prop-types";
-import Button from "../../components/Dashboard/Button";
-import Multiline from "../Dashboard/Multiline";
-import InputForm from "../Dashboard/InputForm";
+import React, {memo, Component} from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
+import {compose} from 'redux';
+import {v4 as uuidv4} from 'uuid';
+import {TextField, FormControl } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import {withStyles} from '@material-ui/core/styles';
+import {addMessage} from '../../actions/chats';
 
-
-const initialState = {
-  author: "",
-  text: "",
-  isTextError: false,
-  isAuthorError: false,
-};
+const styles = theme => ({
+    form: {
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        marginTop: theme.spacing(4),
+    },
+    inputForm: {
+        marginBottom: 10
+    }
+});
 
 class FormMessage extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {...initialState};
-  }
+    state = {
+        text: '',
+    };
 
-  onSubmit = (e) => {
-    e.preventDefault();
+    onSubmit = e => {
+        e.preventDefault();
+        this.sendMessage();
+    };
 
-    const {addMessage} = this.props;
+    onChange = ({target}) => {
+        const {value, name} = target;
 
-    this.setState({isTextError: false});
-    this.setState({isAuthorError: false});
+        this.setState({[name]: value});
+    };
 
-    console.log(this.state);
+    sendMessage = () => {
+        const {
+            addMessage,
+            match: {params},
+        } = this.props;
+        const {text} = this.state;
 
-    if(this.state.text.length > 0 && this.state.author.length > 2) {
-      addMessage(this.state);
-      this.setState({...initialState}); // короткий вариант очистки полей
-    } else {
-      if(this.state.text.length < 1) {
-        this.setState({isTextError: true});
-      }
-      if(this.state.author.length < 2) {
-        this.setState({isAuthorError: true});
-      }
+        addMessage({chatId: params.chatId, message: {text, id: uuidv4()}});
+        this.setState({
+            text: '',
+        });
+    };
 
+    onKeyDown = e => {
+        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+            this.sendMessage();
+        }
+    };
+
+    render() {
+        const {text} = this.state;
+        const {classes} = this.props;
+
+        return (
+            <form className={classes.form} onSubmit={this.onSubmit}>
+                <FormControl>
+                    <TextField
+                        variant="outlined"
+                        name="text"
+                        label="Message"
+                        value={text}
+                        onChange={this.onChange}
+                        onKeyDown={this.onKeyDown}
+                        className={classes.inputForm}
+                        required
+                    />
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                        className={classes.button}
+                    >
+                        Send
+                    </Button>
+                </FormControl>
+            </form>
+        );
     }
-  };
-
-  onChange = ({target}) => {
-    const {value, name} = target;
-    this.setState({[name]: value});
-
-    console.log('onChange');
-  };
-
-  render() {
-
-
-
-    const {author, text, isTextError, isAuthorError} = this.state;
-
-    let className = 'text';
-    if (isTextError) {
-      className += ' error';
-    }
-
-    let inputStyle = 'author';
-    if (isAuthorError) {
-      inputStyle += ' error';
-    }
-
-
-    return (
-      <form onSubmit={this.onSubmit} className="form">
-        <InputForm onChange={this.onChange} ></InputForm>
-
-        <Multiline onChange={this.onChange}></Multiline>
-
-        <Button></Button>
-      </form>
-    );
-  }
 }
 
 FormMessage.propTypes = {
-  addMessage: PropTypes.func.isRequired,
+    classes: PropTypes.shape({
+        form: PropTypes.string,
+    }).isRequired,
+    addMessage: PropTypes.func.isRequired,
+    match: PropTypes.shape({
+        params: PropTypes.shape({
+            chatId: PropTypes.string,
+        }),
+    }).isRequired,
 };
 
-export default FormMessage;
+const mapDispatchToProps = {
+    addMessage,
+};
+
+export default compose(
+    connect(null, mapDispatchToProps),
+    withStyles(styles),
+    withRouter,
+    memo,
+)(FormMessage);

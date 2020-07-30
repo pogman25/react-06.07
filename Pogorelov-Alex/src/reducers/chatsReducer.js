@@ -30,6 +30,7 @@ export const chatsSlice = createSlice({
     },
   },
 });
+
 export const {
   chatsRequest,
   getChatsSuccess,

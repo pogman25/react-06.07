@@ -4,13 +4,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllChats, getNotification } from '../../store/selector/selector';
+import { getAllChats } from '../../store/selector/selector';
 import { IconButton, TextField, Box, makeStyles } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import {addChats} from '../../store/actions/chatsAction'
-import EmailIcon from '@material-ui/icons/Email';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { addChats, dellChats } from '../../store/reducers/chatsReducer';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -19,11 +19,11 @@ const useStyles = makeStyles(() => ({
 }))
 
 const ChatList = () => {
+  const {chatId} = useParams()
   const classes = useStyles();
   const [text, setText] = useState('')
   const chatsList = useSelector(getAllChats);
   const dispatch = useDispatch()
-  const notification = useSelector(store => getNotification(store))
 
   const textChange = (event) => {
     setText(event.target.value)
@@ -32,6 +32,10 @@ const ChatList = () => {
   const addChatsClick = () => {
     dispatch(addChats(text))
     setText('')
+  }
+
+  const deleteChat = () => {
+    dispatch(dellChats(chatId))
   }
 
   return (
@@ -46,9 +50,9 @@ const ChatList = () => {
                 </ListItemAvatar>
                 <ListItemText primary={value.title} />
               </ListItem>
-              {(notification.state && (value.id === notification.id)) && <IconButton>
-                <EmailIcon />
-              </IconButton>}
+              <IconButton onClick={deleteChat}>
+                <DeleteIcon />
+              </IconButton>
             </NavLink>
           );
         })}

@@ -17,6 +17,7 @@ const mockChats = [
       slug: '/chats/2',
       title: 'Чат 2',
     },
+    
   ];
   
   export default mockChats;

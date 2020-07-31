@@ -1,35 +1,23 @@
-import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
-import chatsReducer from './reducers/chatsReducer';
+import { combineReducers } from 'redux';
 import messagesReducer from './reducers/messagesReducer'
 import logger from 'redux-logger';
-import thunk from 'redux-thunk';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-
-const persistConfig = {
-  key: 'root',
-  storage
-};
+import createSagaMiddleware from 'redux-saga';
+import chatsReducer from './reducers/chatsReducer';
+import rootSaga from './saga';
+import { getDefaultMiddleware, configureStore } from '@reduxjs/toolkit';
 
 const reducer = combineReducers({
   chats: chatsReducer,
-  // messages: messagesReducer
+  messages: messagesReducer
 });
 
-const persistedReducer = persistReducer(persistConfig, reducer);
+const sagaMiddleware = createSagaMiddleware();
 
-const composeEnhancers =
-  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-      })
-    : compose;
+const store = configureStore({
+  reducer: reducer,
+  middleware: [...getDefaultMiddleware(), sagaMiddleware, logger],
+});
 
-const enhancer = composeEnhancers(
-  applyMiddleware(thunk, logger),
-);
+sagaMiddleware.run(rootSaga)
 
-export default () => {
-  const store = createStore(persistedReducer, enhancer);
-  const persistor = persistStore(store);
-  return { store, persistor };
-};
+export default store

@@ -18,8 +18,6 @@ import { DRAWER_WIDTH } from '../../utils/constants';
 import { pageList, chatList } from './pageList';
 import { useSelector } from 'react-redux';
 import { getAllChats } from '../../selectors/chats';
-import { addMessage } from '../../actions/chats';
-
 
 const useStyles = makeStyles(theme => ({
   drawerPaper: {
@@ -46,11 +44,7 @@ const useStyles = makeStyles(theme => ({
 const ChatList = () => {
   const classes = useStyles();
   const allChats = useSelector(getAllChats);
-  const colorChat = useSelector(addMessage);
 
-  console.log(colorChat + 'sdelaem');
-  
-  console.log(allChats + 'cat');
   return (
     <Drawer
       variant="permanent"
@@ -68,15 +62,12 @@ const ChatList = () => {
       <Typography variant="h5">Chats</Typography>
       <List>
         {allChats.map(({ id, title, slug }) => (
-          <Link key={id} to={slug} >
-            <ListItem button  >
+          <Link key={id} to={slug}>
+            <ListItem button>
               <ListItemIcon>
                 <PeopleIcon />
               </ListItemIcon>
-              <ListItemText 
-              
-              style={ { color: 'lightblue'} }
-               primary={title} />
+              <ListItemText primary={title} />
             </ListItem>
           </Link>
         ))}

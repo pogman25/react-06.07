@@ -1,19 +1,21 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Switch, Route } from 'react-router-dom';
 import Chats from "./Chats";
-import Profile from "./Profile/Profile";
-
+import Layout from "../components/Layout/Layout";
 const RootRouter = () => {
+
     return (
-        // Перестало работать Page not found
         <Switch>
-            <Route exact path="/"/>
-            <Route path="/profile" component={Profile}/>
+            <Route exact path="/">
+                <Layout/>
+            </Route>
             <Route path="/chats/:chatId" component={Chats}/>
             <Route>
-                <div>
-                    <h1>Page not found 404</h1>
-                </div>
+                <Layout>
+                    <div>
+                        <h1>Page not found 404</h1>
+                    </div>
+                </Layout>
             </Route>
         </Switch>
     )

@@ -1,0 +1,40 @@
+
+[
+    {
+        "id": 1,
+        "title": "Games",        
+        "slug": "/chats/1",
+        
+        "messageList": [
+            {
+                "id": 1,
+                "text": "Привет",
+                "sender": "me"
+            },
+            {
+                "id": 2,
+                "text": "Я робот",
+                "sender": "bot"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "title": "Trips",        
+        "slug": "/chats/2",
+        "messageList": [
+            {
+                "id": 3,
+                "text": "Здравствуйте!",
+                "sender": "me"
+            },
+            {
+                "id": 4,
+                "text": "Я робот",
+                "sender": "bot"
+            }
+        ]
+    },
+    
+ ]
+ 

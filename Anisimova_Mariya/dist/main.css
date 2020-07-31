@@ -7,11 +7,6 @@
 
 ._2qlyWw3V5Aa2JjdTvE_AtD {
   display: flex;
-  flex-direction: column;
-  padding: 5px 25px;
-  background-color: cadetblue;
-  border-radius: 25px;
-  margin: 10px;
 }
 ._3ZLxMZLEk2M9Iyctr0QdYc {
   align-self: flex-end;
@@ -21,5 +16,13 @@
 }
 .EQtj_fY7Ey-hpJG4ADIH9 span {
   overflow-wrap: break-word;
+}
+._2qlyWw3V5Aa2JjdTvE_AtD ._3Nu6-TB1yma19GEsryLUg8 {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 25px;
+  background-color: cadetblue;
+  border-radius: 25px;
+  margin: 10px;
 }
 

@@ -18,6 +18,7 @@ const useStyle = makeStyles(theme => ({
 
 const Layout = ({ children }) => {
   const classes = useStyle();
+
   return (
     <div className={classes.root}>
       <Header />

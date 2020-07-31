@@ -1,88 +1,29 @@
 import React, { Component } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
-import { Box } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { Box, Backdrop } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { Message, FormMessage } from '../../components';
+import { getChats } from '../../selectors/chats';
+import Layout from '../../components/Layout/Layout';
 
 class Chats extends Component {
-  state = {
-    chats: {
-      1: {
-        id: 1,
-        messageList: [1, 2],
-        title: 'Чат 1',
-      },
-      2: {
-        id: 2,
-        messageList: [3, 4],
-        title: 'Чат 2',
-      },
-    },
-    messages: {
-      1: { author: 'user', text: 'привет 1', id: 1 },
-      2: { author: 'user', text: 'привет 2', id: 2 },
-      3: { author: 'user', text: 'привет 3', id: 3 },
-      4: { author: 'user', text: 'привет 4', id: 4 },
-    },
-  };
-
-  timer = null;
-
-  componentDidUpdate(_, prevState) {
-    const {
-      match: { params },
-    } = this.props;
-    const { chatId } = params;
-    const { chats } = this.state;
-    const { messageList } = chats[chatId];
-    if (prevState.chats[chatId].messageList.length !== messageList.length) {
-      clearTimeout(this.timer);
-      const messages = this.messages;
-      if (messages[messages.length - 1].author !== 'bot') {
-        this.timer = setTimeout(() => {
-          this.addMessage({
-            id: uuidv4(),
-            author: 'bot',
-            text: 'Не приставай ко мне, я - бот!!!',
-          });
-       }, 1000);
-     }
-   }
- }
-
-  get messages() {
-    const {
-      match: { params },
-    } = this.props;
-    const { chats, messages } = this.state;
-    return chats[params.chatId]?.messageList.map(mid => messages[mid]);
-  }
-
-  addMessage = ({ id, author, text }) => {
-    const {
-      match: { params },
-    } = this.props;
-    this.setState(({ chats, messages }) => ({
-      chats: {
-        ...chats,
-        [params.chatId]: {
-          ...chats[params.chatId],
-          messageList: [...chats[params.chatId].messageList, id],
-        },
-      },
-      messages: {
-        ...messages,
-        [id]: { id, author, text },
-      },
-    }));
-  };
+  componentDidMount() {}
 
   render() {
+    const { currentChat, updated, isFetching } = this.props;
+
     return (
-      <Box p={3} mt={2} flexGrow={1}>
-        <Message messages={this.messages} />
-        <FormMessage addMessage={this.addMessage} />
-      </Box>
+      <Layout>
+        <Backdrop open={isFetching}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+        <Box p={3} mt={2} flexGrow={1}>
+          <Message messages={currentChat.messageList} updated={updated} />
+          <FormMessage />
+        </Box>
+      </Layout>
     );
   }
 }
@@ -95,4 +36,17 @@ Chats.propTypes = {
   }).isRequired,
 };
 
-export default Chats;
+const mapStateToProps = (store, ownProps) => {
+  const {
+    match: {
+      params: { chatId },
+    },
+  } = ownProps;
+  return {
+    currentChat: getChats(store, chatId),
+    updated: store.messages.updated,
+    isFetching: store.chats.isFetching,
+  };
+};
+
+export default connect(mapStateToProps)(Chats);

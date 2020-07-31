@@ -12,14 +12,12 @@ import {
   ListItemText,
   Typography,
 } from '@material-ui/core';
-// import DashboardIcon from '@material-ui/icons/Dashboard';
-// import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PeopleIcon from '@material-ui/icons/People';
-// import BarChartIcon from '@material-ui/icons/BarChart';
-// import LayersIcon from '@material-ui/icons/Layers';
 import MenuIcon from '@material-ui/icons/Menu';
 import { DRAWER_WIDTH } from '../../utils/constants';
 import { pageList, chatList } from './pageList';
+import { useSelector } from 'react-redux';
+import { getAllChats } from '../../selectors/chats';
 
 const useStyles = makeStyles(theme => ({
   drawerPaper: {
@@ -39,12 +37,13 @@ const useStyles = makeStyles(theme => ({
     ...theme.mixins.toolbar,
   },
   bottomLinks: {
-  marginTop: 'auto',
-},
+    marginTop: 'auto',
+  },
 }));
 
 const ChatsList = () => {
   const classes = useStyles();
+  const allChats = useSelector(getAllChats);
 
   return (
     <Drawer

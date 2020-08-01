@@ -1,0 +1,22 @@
+{
+  "short_name": "MyChat",
+  "name": "My Funny Chat App",
+  "icons": [
+        {
+      "src":"/manifest/icon.ico",
+      "sizes": "16x16",
+      "type": "image/icon"
+    },
+    {
+      "src":"/manifest/icon.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#7ACCE5",
+  "theme_color": "#7ACCE5",
+  "orientation": "any",
+  "display": "standalone"
+ }
+ 

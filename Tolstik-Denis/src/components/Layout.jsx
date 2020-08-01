@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import { v4 as uuidv4 } from "uuid";
 import Header from './Header';
 import MessageField from './MessageField';
 import { withStyles } from "@material-ui/core/styles";
 import ChatList from './ChatList';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { getChatsSuccess } from '../actions/chats';
+import { getChats } from '../actions/chats';
+import { Backdrop, CircularProgress } from '@material-ui/core';
 
 const styles = {
     mainContainer: {
@@ -19,21 +19,19 @@ const styles = {
 
 class Layout extends Component {
     componentDidMount() {
-        const {getChats} = this.props;
+        const { getChatsAction } = this.props;
         
-        getChats({
-            1 : { chatId: 1, slug: "/chat/1", title: 'Chat 1', messages: []},
-            2 : { chatId: 2, slug: "/chat/2", title: 'Chat 2', messages: []},
-            3 : { chatId: 3, slug: "/chat/3", title: 'Chat 3', messages: []}     
-        });
+        getChatsAction();        
     }
     
     render() {
-        const {classes, chatId} = this.props;
-        const {chats} = this.props;        
-        
+        const {classes, chatId, chats, isLoading} = this.props;
+
         return (
             <div className={classes.mainContainer}>
+                <Backdrop open={isLoading}>
+                    <CircularProgress color="inherit" />
+                </Backdrop>                
                 <Header chatId={chatId}/>
                 <ChatList chatId={chatId} chats={chats}/>
                 <MessageField key={chatId} chatId= {chatId} messages={chats[chatId]?.messages} />
@@ -44,17 +42,19 @@ class Layout extends Component {
 
 Layout.propTypes = {
     chatId: PropTypes.number.isRequired,
-    getChats: PropTypes.func.isRequired,
+    getChatsAction: PropTypes.func.isRequired,
 }
 
 Layout.defaultProps = {
-    chatId: 1
+    chatId: 1,
+    isLoading: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = (store) => ({
-    chats: store.chats
+    chats: store.chats.list,
+    isLoading: store.chats.isLoading,
 });
 
-const mapDispatchToProps = { getChats: getChatsSuccess };
+const mapDispatchToProps = { getChatsAction : getChats };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Layout));

@@ -11,8 +11,9 @@ import storeConfig from './store';
 const theme = createMuiTheme();
 const rootElement = document.getElementById("root");
 
-const {store, persistor} = storeConfig();
+const {store/*, persistor*/} = storeConfig();
 
+/*
 ReactDOM.render(
     <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
@@ -25,3 +26,15 @@ ReactDOM.render(
         </PersistGate>
     </Provider>,
     rootElement);
+*/
+
+ReactDOM.render(
+    <Provider store={store}>
+            <BrowserRouter>
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <Router />
+                </ThemeProvider>
+            </BrowserRouter>
+    </Provider>,
+rootElement);

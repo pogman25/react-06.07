@@ -1,0 +1,6 @@
+{
+    "1" : { "chatId": 1, "slug": "/chat/1", "title": "Chat 1", "messages": []},
+    "2" : { "chatId": 2, "slug": "/chat/2", "title": "Chat 2", "messages": []},
+    "3" : { "chatId": 3, "slug": "/chat/3", "title": "Chat 3", "messages": []},     
+    "4" : { "chatId": 4, "slug": "/chat/4", "title": "Chat 4", "messages": []}     
+}

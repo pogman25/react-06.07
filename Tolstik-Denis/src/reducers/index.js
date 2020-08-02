@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import ChatsReducer from './ChatsReducer';
+import ChatsReducer from './chatsReducer';
+import PropfileReducer from './profileReducer';
 
 const rootReducer = combineReducers({
-    chats: ChatsReducer
+    chats: ChatsReducer,
+    profile: PropfileReducer,
 }); 
 
 export default rootReducer;

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import uuid from 'react-uuid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
@@ -21,14 +20,14 @@ const MessageField = ({addMessage}) => {
   };
 
   const addMessageClick = () => {
-    addMessage({author, text: text, id: uuid()});
+    addMessage({author, text: text});
     setText('');
     setAuthor('');
   };
 
   const addMessageEnter = event => {
     if (event.keyCode === 13) {
-      addMessage();
+      addMessageClick();
     }
   };
 
@@ -46,7 +45,7 @@ const MessageField = ({addMessage}) => {
         label="Text"
         value={text}
         onChange={textChange}
-        onKeyDown={addMessageEnter} // много проверки
+        onKeyDown={addMessageEnter} 
         variant="outlined"
         multiline
         rows={4}

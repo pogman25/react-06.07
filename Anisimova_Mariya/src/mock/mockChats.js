@@ -20,3 +20,44 @@ const mockChats = [
 ];
 
 export default mockChats;
+
+// {
+//   "chats": [
+//     {
+//       "id": 1,
+//       "title": "Чат 1",
+//       "slug": "/chats/"
+//     },
+//     {
+//       "id": 2,
+//       "title": "Чат 2",
+//       "slug": "/chats/"
+//     }
+//   ],
+//   "messages": [
+//     {
+//       "id": 1,
+//       "text": "Привет 1",
+//       "author": "user 1",
+//       "idUser": "1"
+//     },
+//     {
+//       "id": 1,
+//       "text": "Привет 2",
+//       "author": "user 1",
+//       "idUser": "1"
+//     },
+//     {
+//       "id": 3,
+//       "text": "Привет 3",
+//       "author": "user 2",
+//       "idUser": "2"
+//     },
+//     {
+//       "id": 4,
+//       "text": "Привет 4",
+//       "author": "user 2",
+//       "idUser": "2"
+//     }
+//   ]
+// }

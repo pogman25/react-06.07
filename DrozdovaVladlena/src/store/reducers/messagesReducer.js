@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import produce from "immer";
 
 const messageSlice = createSlice({
   name: 'message',
@@ -9,7 +10,10 @@ const messageSlice = createSlice({
     getMessages: (state) => ({...state}),
     getMessageSuccess:(state, action) => {
       const [...payload] = action.payload
-      return {...state, messages: payload}
+      return produce(state, draft => {
+        draft.messages = [...payload]
+      })
+      // return {...state, messages: payload}
     }, 
     getMessageError: (state) => ({...state}),
     addMessage: (state) => ({...state}),

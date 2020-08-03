@@ -1,12 +1,12 @@
 {
   "chats": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Чат 1",
       "slug": "/chats/"
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "Чат 2",
       "slug": "/chats/"
     }
@@ -31,10 +31,10 @@
       "idUser": "2"
     },
     {
-      "text": "Привет 3\n",
+      "text": "Привет 3",
       "author": "user 2",
       "idUser": "2",
-      "id": "Bn14s3x"
+      "id": "3"
     }
   ]
 }

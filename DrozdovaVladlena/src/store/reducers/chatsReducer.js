@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import produce from 'immer'
 
 const chatsSlice = createSlice({
   name: 'chats',
@@ -6,12 +7,15 @@ const chatsSlice = createSlice({
     chats: []
   },
   reducers: {
-    getChats: (state) => {
-      return { ...state}
-    },
+    getChats: (state) => ({...state}),
     getChatsSuccess: (state, action) => {
       const [ ...payload ] = action.payload
-      return { ...state, chats: payload.map(item => ({...item, slug: item.slug+item.id}))}
+      return produce(state, draft => {
+        payload.forEach(item => {
+          draft.chats.push({...item, slug: item.slug + item.id})
+        });
+      })
+      // return { ...state, chats: payload.map(item => ({...item, slug: item.slug+item.id}))}
     },
     getChatsError: (state) => ({...state}),
     addChats: (state) => ({...state}),

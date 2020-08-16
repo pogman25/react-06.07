@@ -1,10 +1,14 @@
-import React, {Component, Fragment} from "react";
+import React, {Component, useEffect} from "react";
 import PropTypes from "prop-types";
-import { v4 as uuidv4 } from 'uuid';
 import { createMuiTheme, withStyles} from '@material-ui/core/styles';
 import Messages from "../components/Chat/Messages";
 import FormMessage from "../components/Chat/FormMessage";
 import Divider from "@material-ui/core/Divider";
+import { connect } from "react-redux";
+import { getChatsSuccess } from "../actions/chats";
+import { getChats } from "../selectors/chats";
+import mockChats from "../Mock/mockChats";
+import Layout from "../components/Layout/Layout";
 
 const theme = createMuiTheme(); // Здесь кастомизация темы
 
@@ -16,84 +20,23 @@ const styles = {
 };
 
 class Chats extends Component {
-    state = {
-        chats: {
-            1: {
-                id: 1,
-                messageList : [1, 2],
-                title: "Чат 1"
-            },
-            2: {
-                id: 2,
-                messageList : [3, 4],
-                title: "Чат 2"
-            },
-        },
-        messages: {
-            1: { author: "user", text: "привет", id: 1 },
-            2: { author: "user", text: "как дела", id: 2 },
-            3: { author: "user", text: "как дела 3", id: 3 },
-            4: { author: "user", text: "как дела 4", id: 4 },
-        },
-    };
-    timer = null;
 
-    componentDidUpdate(_, prevState) {
-        const {
-            match: { params },
-        } = this.props;
-        const { chatId } = params;
-        const { chats } = this.state;
-        const { messageList } = chats[chatId];
-        if (prevState.chats[chatId].messageList.length !== messageList.length) {
-            clearTimeout(this.timer);
-            const messages = this.messages;
-            if (messages[messages.length - 1].author !== 'bot') {
-                this.timer = setTimeout(() => {
-                    this.addMessage({ id: uuidv4(), author: 'bot', text: 'Я бот' });
-                }, 1000);
-            }
-        }
+    componentDidMount () {
+        const { getChats } = this.props;
+        setTimeout(() => {
+            getChats(mockChats);
+        }, 1000);
     }
-
-    get messages () {
-        const {
-            match: { params }
-        } = this.props;
-        const { chats, messages } = this.state;
-
-        return chats[params.chatId]?.messageList.map(mid => messages[mid]);
-    }
-
-    addMessage = ({ id, author, text }) => {
-        const {
-            match: { params },
-        } = this.props;
-
-        this.setState(({ chats, messages }) => ({
-            chats: {
-                ...chats,
-                [params.chatId]: {
-                    ...chats[params.chatId],
-                    messageList: [...chats[params.chatId].messageList, id],
-                },
-            },
-            messages: {
-                ...messages,
-                [id]: { id, author, text },
-            },
-        }));
-    };
 
     render() {
-        const { classes } = this.props;
+        const { classes, currentChat } = this.props;
 
         return (
-            <Fragment>
-                <Messages messages={this.messages} />
+            <Layout>
+                <Messages messages={currentChat.messageList} />
                 <Divider className={classes.divider}/>
-                <FormMessage addMessage={this.addMessage} />
-            </Fragment>
+                <FormMessage/>
+            </Layout>
         );
     }
 }
@@ -104,6 +47,22 @@ Chats.propTypes = {
             chatId: PropTypes.string,
         }),
     }).isRequired,
+    getChats: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(Chats);
+const mapStateToProps = (store, ownProps) => {
+  const {
+      match: {
+          params: { chatId },
+      },
+  }  = ownProps;
+  return {
+    currentChat: getChats(store, chatId),
+  };
+};
+
+const mapDispatchToProps = {
+    getChats: getChatsSuccess
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Chats));

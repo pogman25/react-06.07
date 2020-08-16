@@ -2,7 +2,18 @@
 <html lang="ru">
 	<head>
 	   <meta charset="UTF-8">
-	   <title>My React App</title>
+	   	<title>My React Messager</title>
+	   	<link rel="icon" type="image/icon" href="/favicon.ico"/>  
+		<link rel="manifest" href="/manifest/manifest.json"/>
+	   <script>
+			// Check that service workers are supported
+			if ('serviceWorker' in navigator) {
+			// Use the window load event to keep the page load performant
+			window.addEventListener('load', () => {
+				navigator.serviceWorker.register('/service-worker.js');
+			});
+			}
+		</script>
 	</head>
 	<body>
 		<div id="root"></div>

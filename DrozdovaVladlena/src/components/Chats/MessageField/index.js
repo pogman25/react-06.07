@@ -1,1 +1,1 @@
-export { default } from './MessageField'
+export { default } from './MessageField';

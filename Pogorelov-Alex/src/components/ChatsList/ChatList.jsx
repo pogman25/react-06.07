@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 const ChatList = () => {
   const classes = useStyles();
   const allChats = useSelector(getAllChats);
-  console.log(allChats);
+
   return (
     <Drawer
       variant="permanent"

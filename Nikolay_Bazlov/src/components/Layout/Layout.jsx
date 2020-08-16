@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Container from "@material-ui/core/Container";
@@ -12,6 +12,10 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import PersonIcon from '@material-ui/icons/Person';
 import { useParams } from "react-router-dom"
+import { useSelector, useDispatch } from 'react-redux';
+import { getChats } from "../../selectors/chats";
+import {getFullName} from "../../selectors/profile";
+import {sendChatsRequest} from "../../actions/chats";
 
 const useStyles = makeStyles((theme) => ({
     appBarSpacer: theme.mixins.toolbar,
@@ -38,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Layout({children}) {
     const classes = useStyles();
     const { chatId } = useParams();
+    const { title } = useSelector(store => getChats(store, chatId));
+    const fullName = useSelector(getFullName);
 
     return (
         // Тут я так и не допёр как сделать номер чата. + Высота "Header'a" неверная.
@@ -50,7 +56,7 @@ export default function Layout({children}) {
                     <Paper  className={classes.paper}>
                         <Box display="flex" justifyContent="space-between">
                             <Typography component="h2" variant="button" noWrap>
-                                {`Чат с ...`}
+                                {`${fullName}'s ${title}`}
                             </Typography>
                             <Link to="/profile">
                                 <PersonIcon color="primary"/>

@@ -1,18 +1,15 @@
-import React from 'react'
-import {Header, ChatList, MessageField} from '../index'
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import style from './Layout.module.css'
+import React from 'react';
+import { Header, ChatList } from '../index';
+import style from './Layout.module.css';
 
-const theme = createMuiTheme()
+const Layout = ({ children }) => {
+  return (
+    <div className={style.spa}>
+      <Header />
+      <ChatList />
+      <main>{children}</main>
+    </div>
+  );
+};
 
-const Layout  = () => {
-    return <ThemeProvider theme={theme}>
-            <div className={style.spa}>
-                <Header />
-                <ChatList />
-                <MessageField />   
-            </div>
-        </ThemeProvider >
-}
-
-export default Layout 
+export default Layout;

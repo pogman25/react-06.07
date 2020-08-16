@@ -8,7 +8,8 @@ module.exports = {
     },
     output: {   
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].js'
+        filename: '[name].js',
+        publicPath: '/'
     },
     resolve: {
         extensions: [".js", ".jsx"],
@@ -32,6 +33,7 @@ module.exports = {
                     loader: "babel-loader",
                     options: {
                         presets: ["@babel/preset-env", "@babel/preset-react"],
+                        plugins: ['@babel/plugin-proposal-class-properties'],
                     },
                 },
             },
@@ -46,8 +48,8 @@ module.exports = {
     ],
     devServer: {
         contentBase: path.join(__dirname, "dist"),
-        port: 3000,
+        port: 8080,
         watchContentBase: true,
+        historyApiFallback: true,
     },
 }
-

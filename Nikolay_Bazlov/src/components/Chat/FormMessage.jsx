@@ -5,6 +5,10 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from "@material-ui/core/Grid";
+import { connect } from "react-redux";
+import { addMessage } from "../../actions/chats";
+import { withRouter } from "react-router-dom"
+import {compose} from "redux";
 
 const styles = {
     root: {
@@ -14,7 +18,6 @@ const styles = {
 
 class FormMessage extends Component {
   state = {
-    author: "user",
     text: "",
   };
 
@@ -30,10 +33,10 @@ class FormMessage extends Component {
     };
 
     sendMessage = () => {
-        const { addMessage } = this.props;
-        const { text, author } = this.state;
+        const { addMessage, match: { params } } = this.props;
+        const { text } = this.state;
 
-        addMessage({ author, text, id: uuidv4() });
+        addMessage( {chatId: params.chatId, message: { text, id: uuidv4() } } );
         this.setState({
             text: '',
         });
@@ -52,16 +55,7 @@ class FormMessage extends Component {
     return (
         <form onSubmit={this.onSubmit}>
             <Grid container justify="space-between" className={classes.root} >
-                <Grid item xs={2}>
-                    <TextField
-                        label="Author"
-                        variant="outlined"
-                        name="author"
-                        onChange={this.onChange}
-                        value={author}
-                    />
-                </Grid>
-                <Grid item xs={7}>
+                <Grid item xs={9}>
                     <TextField
                         label="Text"
                         fullWidth
@@ -94,6 +88,19 @@ FormMessage.propTypes = {
         form: PropTypes.string,
     }).isRequired,
     addMessage: PropTypes.func.isRequired,
+    match: PropTypes.shape({
+        params: PropTypes.shape({
+            chatId: PropTypes.string
+        })
+    })
 };
 
-export default withStyles(styles)(FormMessage);
+const mapDispatchToProps = {
+    addMessage,
+};
+
+export default compose(
+    connect(null, mapDispatchToProps),
+    withStyles(styles),
+    withRouter,
+)(FormMessage);

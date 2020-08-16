@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types'
-import uuid from 'react-uuid'
+import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import useStyles from './MessageFieldStyle';
 
-const MessageField = (props) => {
+const MessageField = ({addMessage}) => {
   const [author, setAuthor] = useState('');
   const [text, setText] = useState('');
 
@@ -20,42 +19,48 @@ const MessageField = (props) => {
     setAuthor(event.target.value);
   };
 
-  const addMessage = () => {
-    props.addMessage({ id: uuid(), message: text, author})
+  const addMessageClick = () => {
+    addMessage({author, text: text});
     setText('');
     setAuthor('');
   };
 
   const addMessageEnter = event => {
     if (event.keyCode === 13) {
-      addMessage();
+      addMessageClick();
     }
   };
 
   return (
-      <form className={classes.form} noValidate autoComplete="off">
-          <TextField id="outlined-basic" label="Author" value={author} onChange={authorChange} variant="outlined" />
-          <TextField
-              id="outlined-multiline-static"
-              label="Text"
-              value={text} onChange={textChange}
-              onKeyDown={addMessageEnter}// много проверки
-              variant="outlined"
-              multiline
-              rows={4}
-        />
-          <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          onClick={addMessage}
-          endIcon={<Icon>send</Icon>}
-          disabled={props.botTell}
-        >
-          Send
-              </Button>
-      </form>
-  )
+    <form className={classes.form} noValidate autoComplete="off">
+      <TextField
+        id="outlined-basic"
+        label="Author"
+        value={author}
+        onChange={authorChange}
+        variant="outlined"
+      />
+      <TextField
+        id="outlined-multiline-static"
+        label="Text"
+        value={text}
+        onChange={textChange}
+        onKeyDown={addMessageEnter} 
+        variant="outlined"
+        multiline
+        rows={4}
+      />
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.button}
+        onClick={addMessageClick}
+        endIcon={<Icon>send</Icon>}
+      >
+        Send
+      </Button>
+    </form>
+  );
 };
 
 // MessageField.propTypes = {

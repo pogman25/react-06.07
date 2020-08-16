@@ -18,6 +18,14 @@ body{
     display: flex;
 }
 
+.link{
+    text-decoration: none;
+    color:inherit;
+}
+.link:hover{
+    background-color: grey;
+}
+
 .container{
     display: flex;
     width: 100%;

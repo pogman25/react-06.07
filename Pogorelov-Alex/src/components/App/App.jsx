@@ -4,7 +4,9 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { BrowserRouter } from 'react-router-dom';
 import RootRouter from '../../pages/RootRouter/RootRouter';
-import store from '../../store';
+import storeConfig from '../../store';
+
+const { store } = storeConfig();
 
 const theme = createMuiTheme();
 

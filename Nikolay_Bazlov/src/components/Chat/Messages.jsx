@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import clsx from "clsx";
+import {BOT_NAME} from "../../utils/constants";
 
 const useStyles = makeStyles((theme) => ({
     message_item_bot: {
@@ -28,7 +29,7 @@ const Messages = ({ messages }, props) => {
                     key={id}
                     zeroMinWidth
                     className={clsx(
-                        author === "bot" && classes.message_item_bot
+                        author === BOT_NAME && classes.message_item_bot
                     )}
                     item xs={6}
                 >
@@ -39,7 +40,7 @@ const Messages = ({ messages }, props) => {
                 </Grid>
             ))}
         </Grid>
-    );
+    );p
 };
 
 Messages.propTypes = {

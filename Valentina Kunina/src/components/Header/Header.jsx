@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import AppBar from "@material-ui/core/AppBar";
@@ -10,13 +11,14 @@ import Badge from "@material-ui/core/Badge";
 import MenuIcon from "@material-ui/icons/Menu";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import useStyles from "../Layout/useStyles";
-import { useSelector } from "react-redux";
 import { getChats } from "../../selectors/chats";
+import { getFullName } from "../../selectors/profile";
 
 const Header = ({ open, handleDrawerOpen }) => {
   const classes = useStyles();
   const { chatId } = useParams();
   const { title } = useSelector(store => getChats(store, chatId));
+  const fullName = useSelector(getFullName);
 
   return (
     <AppBar
@@ -40,7 +42,7 @@ const Header = ({ open, handleDrawerOpen }) => {
           noWrap
           className={classes.title}
         >
-          {`Dashboard of ${title}`}
+          {`${fullName}'s Chats ${title}`}
         </Typography>
         <IconButton color="inherit">
           <Badge badgeContent={4} color="secondary">

@@ -12,7 +12,7 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx"],
   },
-  devtool: "source-map",
+  devtool: "source-map", // нужен только для разработки, в production конф-ии удалять
   module: {
     rules: [
       {
@@ -54,8 +54,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: "index.html", //название на выходе
-      template: "src/index.html", //откуда берет файл темплейта
+      filename: "index.html", // название на выходе
+      template: "src/index.html", // откуда берет файл темплейта
     }),
     new MiniCssExtractPlugin(),
   ],

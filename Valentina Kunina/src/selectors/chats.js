@@ -11,5 +11,5 @@ export const getChats = (store, chatId) => {
 
 export const getAllChats = ({ chats }) => {
   const { ids, byIds } = chats;
-  return ids.map((id) => byIds[id])
+  return ids.map(id => byIds[id]);
 };

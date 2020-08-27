@@ -12,13 +12,12 @@ import {
 } from "@material-ui/core";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { useSelector } from "react-redux";
 import useStyles from "./useStyles";
 import Header from "../Header";
-import ChatList from "../ChatsList";
-import ChatListItem from "../ChatsList/ChatListItem";
-import { chatsLinks, pageLinks } from "../ChatsList/pageLinks";
-import { useSelector } from "react-redux";
+import { ChatList, ChatListItem } from "../ChatsList";
 import { getAllChats } from "../../selectors/chats";
+import { mockLinks } from "../../mock";
 
 export default function Layout({ children }) {
   const classes = useStyles();
@@ -53,7 +52,7 @@ export default function Layout({ children }) {
         </List>
         <Divider />
         <List>
-          {pageLinks.map(({ id, title, to, icon }) => (
+          {mockLinks.map(({ id, title, to, icon }) => (
             <ChatListItem to={to} key={id} title={title} icon={icon} />
           ))}
           <ListItem to="/exit" key="exit" title="Exit" onClick={logout} button>
